@@ -2,7 +2,7 @@ import asyncio
 from pyrogram import Client, filters
 from strings.filters import command
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
-from YukkiMusic import app, Telegram
+from DAXXMUSIC import app, Telegram
 import random
 
 
