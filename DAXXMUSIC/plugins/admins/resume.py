@@ -1,6 +1,6 @@
 from pyrogram import filters
 from pyrogram.types import Message
-
+from strings.filters import command
 from DAXXMUSIC import app
 from DAXXMUSIC.core.call import DAXX
 from DAXXMUSIC.utils.database import is_music_playing, music_on
@@ -9,7 +9,7 @@ from DAXXMUSIC.utils.inline import close_markup
 from config import BANNED_USERS
 
 
-@app.on_message(filters.command(["resume", "cresume"]) & filters.group & ~BANNED_USERS)
+@app.on_message(command(["resume", "cresume","/resume","/cresume","د","دەستپێکردنەوە"]) & ~filters.private & ~BANNED_USERS)
 @AdminRightsCheck
 async def resume_com(cli, message: Message, _, chat_id):
     if await is_music_playing(chat_id):
