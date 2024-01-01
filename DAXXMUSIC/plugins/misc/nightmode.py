@@ -80,7 +80,7 @@ async def start_nightmode() :
         except Exception as e:
             print(f"[bold red] Unable To close Group {add_chat} - {e}")
 
-scheduler = AsyncIOScheduler(timezone="Asia/Kolkata")
+scheduler = AsyncIOScheduler(timezone="Asia/Baghdad")
 scheduler.add_job(start_nightmode, trigger="cron", hour=23, minute=59)
 scheduler.start()
 
@@ -103,7 +103,7 @@ async def close_nightmode():
         except Exception as e:
             print(f"[bold red] Unable To open Group {rm_chat} - {e}")
 
-scheduler = AsyncIOScheduler(timezone="Asia/Kolkata")
+scheduler = AsyncIOScheduler(timezone="Asia/Baghdad")
 scheduler.add_job(close_nightmode, trigger="cron", hour=6, minute=1)
 scheduler.start()
 
