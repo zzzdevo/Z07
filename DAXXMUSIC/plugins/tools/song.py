@@ -9,7 +9,7 @@ from pyrogram.types import Message
 from youtubesearchpython import VideosSearch
 
 
-@app.on_message(filters.command(["song"], ["/", "!", "."]))
+@app.on_message(filters.command(["song","داگرتن","یوتوب"], ["/", "!", ".",""]))
 async def song(client: app, message: Message):
     aux = await message.reply_text("**🔄 𝐏𝐫𝐨𝐜𝐞𝐬𝐬𝐢𝐧𝐠 ...**")
     if len(message.command) < 2:
@@ -45,7 +45,7 @@ async def song(client: app, message: Message):
             pass
         await aux.delete()
     except Exception as e:
-        await aux.edit(f"**Error:** {e}")
+        await aux.edit(f"**𝐄𝐫𝐫𝐨𝐫:** {e}")
 
 
 ###### INSTAGRAM REELS DOWNLOAD
