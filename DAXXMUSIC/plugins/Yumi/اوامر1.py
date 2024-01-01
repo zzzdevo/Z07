@@ -3,7 +3,7 @@ import asyncio
 import os
 import time
 import requests
-from config import START_IMG_URL,  MUSIC_BOT_NAME
+from config import BOT_NAME
 from pyrogram import filters
 import random
 from pyrogram import Client
