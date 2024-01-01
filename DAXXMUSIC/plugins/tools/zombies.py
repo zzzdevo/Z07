@@ -3,6 +3,7 @@ import asyncio
 from pyrogram import Client, filters
 from pyrogram.types import Message
 from pyrogram import enums
+from strings.filters import command
 from pyrogram.enums import ChatMemberStatus
 from pyrogram.errors import FloodWait
 from DAXXMUSIC import app
@@ -15,7 +16,7 @@ stopProcess = False
 
 # ------------------------------------------------------------------------------- #
 
-@app.on_message(filters.command(["zombies","clean"]))
+@app.on_message(command(["zombies","clean","پاککردنەوە","خاوێنکردنەوە","/clean"]))
 async def remove(client, message):
   global stopProcess
   try: 
@@ -27,13 +28,13 @@ async def remove(client, message):
     if has_permissions:
       bot = await app.get_chat_member(message.chat.id, "self")
       if bot.status == ChatMemberStatus.MEMBER:
-        await message.reply("➠ | ɪ ɴᴇᴇᴅ ᴀᴅᴍɪɴ ᴘᴇʀᴍɪssɪᴏɴs ᴛᴏ ʀᴇᴍᴏᴠᴇ ᴅᴇʟᴇᴛᴇᴅ ᴀᴄᴄᴏᴜɴᴛs.")  
+        await message.reply("**➠ | پێویستە ڕۆڵم هەبێت بۆ سڕینەوەی هەموو ئەکاونتە سووتاوەکان⚡🖤•**")  
       else:  
         if len(chatQueue) > 30 :
-          await message.reply("➠ | ɪ'ᴍ ᴀʟʀᴇᴀᴅʏ ᴡᴏʀᴋɪɴɢ ᴏɴ ᴍʏ ᴍᴀxɪᴍᴜᴍ ɴᴜᴍʙᴇʀ ᴏғ 30 ᴄʜᴀᴛs ᴀᴛ ᴛʜᴇ ᴍᴏᴍᴇɴᴛ. ᴘʟᴇᴀsᴇ ᴛʀʏ ᴀɢᴀɪɴ sʜᴏʀᴛʟʏ.")
+          await message.reply("**➠ | من دووبارە کاردەکەم گەورەترین ژمارەی گرووپ 30یە لەیەك کاتدا، تکایە دووبارەی بکەوە🖤•**")
         else:  
           if message.chat.id in chatQueue:
-            await message.reply("➠ | ᴛʜᴇʀᴇ's ᴀʟʀᴇᴀᴅʏ ᴀɴ ᴏɴɢɪɪɴɢ ᴘʀᴏᴄᴇss ɪɴ ᴛʜɪs ᴄʜᴀᴛ. ᴘʟᴇᴀsᴇ [ /stop ] ᴛᴏ sᴛᴀʀᴛ ᴀ ɴᴇᴡ ᴏɴᴇ.")
+            await message.reply("**➠ | پڕۆسەکە دووبارە کراوەتەوە لەم گرووپە، تکایە [ /stop ] بکە بۆ دەستپێکردنی دانەیەکی نوێ♥•**")
           else:  
             chatQueue.append(message.chat.id)  
             deletedList = []
@@ -44,12 +45,12 @@ async def remove(client, message):
                 pass
             lenDeletedList = len(deletedList)  
             if lenDeletedList == 0:
-              await message.reply("⟳ | ɴᴏ ᴅᴇʟᴇᴛᴇᴅ ᴀᴄᴄᴏᴜɴᴛs ɪɴ ᴛʜɪs ᴄʜᴀᴛ.")
+              await message.reply("**⟳ | هیچ ئەکاونتێکی سووتاو لەم گرووپە نییە🖤•**")
               chatQueue.remove(message.chat.id)
             else:
               k = 0
               processTime = lenDeletedList*1
-              temp = await app.send_message(message.chat.id, f"🧭 | ᴛᴏᴛᴀʟ ᴏғ {lenDeletedList} ᴅᴇʟᴇᴛᴇᴅ ᴀᴄᴄᴏᴜɴᴛs ʜᴀs ʙᴇᴇɴ ᴅᴇᴛᴇᴄᴛᴇᴅ.\n🥀 | ᴇsᴛɪᴍᴀᴛᴇᴅ ᴛɪᴍᴇ: {processTime} sᴇᴄᴏɴᴅs ғʀᴏᴍ ɴᴏᴡ.")
+              temp = await app.send_message(message.chat.id, f"**🧭 | کۆی گشتی لە {lenDeletedList} ئەکاونتی سووتاو دۆزرایەوە\n🥀 | کاتی خەڵمێنراو: {processTime} چرکە لە ئێستا🖤•**")
               if stopProcess: stopProcess = False
               while len(deletedList) > 0 and not stopProcess:   
                 deletedAccount = deletedList.pop(0)
@@ -60,21 +61,21 @@ async def remove(client, message):
                 k+=1
                 await asyncio.sleep(10)
               if k == lenDeletedList:  
-                await message.reply(f"✅ | sᴜᴄᴄᴇssғᴜʟʟʏ ʀᴇᴍᴏᴠᴇᴅ ᴀʟʟ ᴅᴇʟᴇᴛᴇᴅ ᴀᴄᴄɪᴜɴᴛs ғʀᴏᴍ ᴛʜɪs ᴄʜᴀᴛ.")  
+                await message.reply(f"**✅ | بە سەرکەوتوویی سڕدرانەوە، هەموو ئەکاونتە سووتاوەکان لەم گرووپە🖤•**")  
                 await temp.delete()
               else:
-                await message.reply(f"✅ | sᴜᴄᴄᴇssғᴜʟʟʏ ʀᴇᴍᴏᴠᴇᴅ {k} ᴅᴇʟᴇᴛᴇᴅ ᴀᴄᴄᴏᴜɴᴛs ғʀᴏᴍ ᴛʜɪs ᴄʜᴀᴛ.")  
+                await message.reply(f"**✅ | بە سەرکەوتوویی سڕدرایەوە {k} ئەکاونتی سووتاو لەم گرووپە🖤•**")  
                 await temp.delete()  
               chatQueue.remove(message.chat.id)
     else:
-      await message.reply("👮🏻 | sᴏʀʀʏ, **ᴏɴʟʏ ᴀᴅᴍɪɴ** ᴄᴀɴ ᴇxᴇᴄᴜᴛᴇ ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ.")  
+      await message.reply("**👮🏻 | ببوورە، تەنیا ئەدمینەکان دەتوانن ئەم فەرمانە بەکاربێنن🗿•**")  
   except FloodWait as e:
     await asyncio.sleep(e.value)                               
         
 
 # ------------------------------------------------------------------------------- #
 
-@app.on_message(filters.command(["admins","staff"]))
+@app.on_message(command(["/admins","/staff","ستاف","ئەدمینەکان","staff"]))
 async def admins(client, message):
   try: 
     adminList = []
@@ -90,7 +91,7 @@ async def admins(client, message):
       else:
         pass   
     lenAdminList= len(ownerList) + len(adminList)  
-    text2 = f"**ɢʀᴏᴜᴘ sᴛᴀғғ - {message.chat.title}**\n\n"
+    text2 = f"**ستافی گرووپ - {message.chat.title}**\n\n"
     try:
       owner = ownerList[0]
       if owner.username == None:
@@ -115,28 +116,28 @@ async def admins(client, message):
           text2 += f"└ {admin.mention}\n\n"
         else:
           text2 += f"└ @{admin.username}\n\n"
-      text2 += f"✅ | **ᴛᴏᴛᴀʟ ɴᴜᴍʙᴇʀ ᴏғ ᴀᴅᴍɪɴs**: {lenAdminList}"  
+      text2 += f"**✅ | کۆی گشتی ژمارەی ئەدمینەکان: {lenAdminList}**"  
       await app.send_message(message.chat.id, text2)           
   except FloodWait as e:
     await asyncio.sleep(e.value)       
 
 # ------------------------------------------------------------------------------- #
 
-@app.on_message(filters.command("bots"))
+@app.on_message(command("bots","بۆتەکان","/bots"))
 async def bots(client, message):  
   try:    
     botList = []
     async for bot in app.get_chat_members(message.chat.id, filter=enums.ChatMembersFilter.BOTS):
       botList.append(bot.user)
     lenBotList = len(botList) 
-    text3  = f"**ʙᴏᴛ ʟɪsᴛ - {message.chat.title}**\n\n🤖 ʙᴏᴛs\n"
+    text3  = f"**لیستی بۆتەکان - {message.chat.title}\n\n🤖 بۆتەکان\n**"
     while len(botList) > 1:
       bot = botList.pop(0)
       text3 += f"├ @{bot.username}\n"    
     else:    
       bot = botList.pop(0)
       text3 += f"└ @{bot.username}\n\n"
-      text3 += f"✅ | *ᴛᴏᴛᴀʟ ɴᴜᴍʙᴇʀ ᴏғ ʙᴏᴛs**: {lenBotList}"  
+      text3 += f"**✅ | کۆی گشتی بۆتەکان: {lenBotList}**"  
       await app.send_message(message.chat.id, text3)
   except FloodWait as e:
     await asyncio.sleep(e.value)
