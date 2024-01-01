@@ -109,7 +109,7 @@ async def gen_thumb(videoid):
     draw = ImageDraw.Draw(background)
     arial = ImageFont.truetype("DAXXMUSIC/assets/font2.ttf", 30)
     font = ImageFont.truetype("DAXXMUSIC/assets/font.ttf", 30)
-    title_font = ImageFont.truetype("DAXXMUSIC/assets/font3.ttf", 45)
+    title_font = ImageFont.truetype("DAXXMUSIC/assets/font.ttf", 45)
 
 
     circle_thumbnail = crop_center_circle(youtube, 400, 20)
