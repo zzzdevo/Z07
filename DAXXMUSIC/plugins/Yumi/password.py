@@ -5,7 +5,7 @@ from DAXXMUSIC import app
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 
-@app.on_message(command(["genpassword", 'genpw',"پاسوۆرد","پاسورد"]))
+@app.on_message(command(["genpassword", "genpw","پاسوۆرد","پاسورد"]))
 async def password(bot, update):
     message = await update.reply_text(text="** پڕۆسەی دەکات..**")
     password = "abcdefghijklmnopqrstuvwxyz1234567890!@#$%^&*()_+".lower()
