@@ -1,8 +1,7 @@
 aiofiles
 bard
 pornhub-api==0.2.0
-aiohttp==3.9.1
-asyncio==3.4.3
+aiohttp
 beautifulsoup4
 blackpink
 deepai
@@ -15,8 +14,8 @@ pydub
 pycountry
 heroku3
 apscheduler
-motor==3.3.2
-pillow==9.5.0
+motor
+pillow
 psutil
 wget
 pyfiglet
@@ -27,9 +26,9 @@ search_engine_parser
 py-tgcalls==0.9.7
 pykeyboard
 pyshorteners
-pyrogram==2.0.106
+pyrogram
 python-dotenv
-pyyaml==6.0.1
+pyyaml
 requests
 emojis
 speedtest-cli
@@ -37,7 +36,7 @@ spotipy
 tgcrypto
 telegraph
 unidecode
-yt-dlp==2023.11.16
+git+https://github.com/yt-dlp/yt-dlp@master
 youtube-search
 youtube-search-python
 gtts
