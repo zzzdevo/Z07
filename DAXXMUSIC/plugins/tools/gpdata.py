@@ -5,7 +5,7 @@ from DAXXMUSIC import app
 from config import OWNER_ID
 from DAXXMUSIC.misc import SUDOERS
 from pyrogram.types import Message
-from DAXXMUSIC.utils.daxx_ban import admin_filter
+from DAXXMUSIC.utils.daxx_ban import admin_filter, sudo_filter
 from pyrogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
 from strings.filters import command
 
@@ -13,7 +13,7 @@ from strings.filters import command
 # ------------------------------------------------------------------------------- #
 
 
-@app.on_message(command(["/pin","پین","هەڵواسین"]) & admin_filter & SUDOERS)
+@app.on_message(command(["/pin","پین","هەڵواسین"]) & admin_filter & sudo_filter)
 async def pin(_, message):
     replied = message.reply_to_message
     chat_title = message.chat.title
@@ -49,7 +49,7 @@ async def pinned(_, message):
 
 # ------------------------------------------------------------------------------- #
 
-@app.on_message(command(["unpin","لادانی پین","لادانی هەڵواسین"]) & admin_filter & SUDOERS)
+@app.on_message(command(["unpin","لادانی پین","لادانی هەڵواسین"]) & admin_filter & sudo_filter)
 async def unpin(_, message):
     replied = message.reply_to_message
     chat_title = message.chat.title
@@ -75,7 +75,7 @@ async def unpin(_, message):
 
 # --------------------------------------------------------------------------------- #
 
-@app.on_message(command(["/removephoto","لادانی_وێنە","/rphoto"]) & admin_filter & SUDOERS)
+@app.on_message(command(["/removephoto","لادانی وێنە","/rphoto"]) & admin_filter & sudo_filter)
 async def deletechatphoto(_, message):
       
       chat_id = message.chat.id
@@ -94,7 +94,7 @@ async def deletechatphoto(_, message):
 
 # --------------------------------------------------------------------------------- #
 
-@app.on_message(command(["/setphoto","دانانی_وێنە","/sphoto"])& admin_filter & SUDOERS)
+@app.on_message(command(["/setphoto","دانانی وێنە","/sphoto"])& admin_filter & sudo_filter)
 async def setchatphoto(_, message):
       reply = message.reply_to_message
       chat_id = message.chat.id
@@ -120,7 +120,7 @@ async def setchatphoto(_, message):
 
 # --------------------------------------------------------------------------------- #
 
-@app.on_message(command(["/settitle","گۆڕینی_ناو","stitle"])& admin_filter & SUDOERS)
+@app.on_message(command(["/settitle","گۆڕینی ناو","stitle"])& admin_filter & sudo_filter)
 async def setgrouptitle(_, message):
     reply = message.reply_to_message
     chat_id = message.chat.id
@@ -156,7 +156,7 @@ async def setgrouptitle(_, message):
 
 
 
-@app.on_message(command(["/setdiscription","گۆڕینی_بایۆ","/sbio"]) & admin_filter & SUDOERS)
+@app.on_message(command(["/setdiscription","گۆڕینی بایۆ","/sbio"]) & admin_filter & sudo_filter)
 async def setg_discription(_, message):
     reply = message.reply_to_message
     chat_id = message.chat.id
