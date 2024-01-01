@@ -1,7 +1,7 @@
 import pyrogram
 from pyrogram import filters, Client
 from pyrogram.enums import ChatMemberStatus
-from YukkiMusic import app
+from DAXXMUSIC import app
 
 
 @app.on_message(pyrogram.filters.forwarded)
