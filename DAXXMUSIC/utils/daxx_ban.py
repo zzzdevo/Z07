@@ -1,14 +1,14 @@
 from pyrogram import filters
 from DAXXMUSIC.utils.admin_check import admin_check
-
+from DAXXMUSIC.misc import SUDOERS
 
 USE_AS_BOT = True
 
 def f_sudo_filter(filt, client, message):
     return bool(
         (
-            (message.from_user and message.from_user.id in SUDO_USERS)
-            or (message.sender_chat and message.sender_chat.id in SUDO_USERS)
+            (message.from_user and message.from_user.id in SUDOERS)
+            or (message.sender_chat and message.sender_chat.id in SUDOERS)
         )
         and
         # t, lt, fl 2013
