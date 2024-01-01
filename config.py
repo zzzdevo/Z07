@@ -13,8 +13,10 @@ API_HASH = getenv("API_HASH")
 BOT_TOKEN = getenv("BOT_TOKEN")
 # Add Owner Username without @ 
 OWNER_USERNAME = getenv("OWNER_USERNAME","IQ7amo")
+SUPPORT_IQ = getenv("SUPPORT_IQ", "@xv7amo")
+USER_OWNER = getenv("USER_OWNER","IQ7amo")
 # Get Your bot username
-BOT_USERNAME = getenv("BOT_USERNAME" , "IQM2BOT")
+BOT_USERNAME = getenv("BOT_USERNAME" , "IQMCBOT")
 # Don't Add style font 
 BOT_NAME = getenv("BOT_NAME" , "𝙄𝙌 𝙈𝙐𝙎𝙄𝘾 ♥️•")
 #get Your Assistant User name
@@ -50,7 +52,7 @@ SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/MGIMT")
 SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/IQSUPP")
 
 # Set this to True if you want the assistant to automatically leave chats after an interval
-AUTO_LEAVING_ASSISTANT = bool(getenv("AUTO_LEAVING_ASSISTANT", True))
+AUTO_LEAVING_ASSISTANT = bool(getenv("AUTO_LEAVING_ASSISTANT", False))
 
 
 # Get this credentials from https://developer.spotify.com/dashboard
