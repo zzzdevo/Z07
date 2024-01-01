@@ -7,13 +7,13 @@ from DAXXMUSIC.misc import SUDOERS
 from pyrogram.types import Message
 from DAXXMUSIC.utils.daxx_ban import admin_filter
 from pyrogram.types import Message, CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
-
+from strings.filters import command
 
 
 # ------------------------------------------------------------------------------- #
 
 
-@app.on_message(filters.command("pin") & admin_filter & filters.user(SUDOERS))
+@app.on_message(command(["/pin","پین","هەڵواسین"]) & admin_filter & filters.user(SUDOERS))
 async def pin(_, message):
     replied = message.reply_to_message
     chat_title = message.chat.title
@@ -35,7 +35,7 @@ async def pin(_, message):
                 await message.reply_text(str(e))
 
 
-@app.on_message(filters.command("pinned"))
+@app.on_message(command(["pinned","پینکراوەکان","هەڵواسراوەکان"]))
 async def pinned(_, message):
     chat = await app.get_chat(message.chat.id)
     if not chat.pinned_message:
@@ -49,7 +49,7 @@ async def pinned(_, message):
 
 # ------------------------------------------------------------------------------- #
 
-@app.on_message(filters.command("unpin") & admin_filter & filters.user(SUDOERS))
+@app.on_message(command(["unpin","لادانی پین","لادانی هەڵواسین"]) & admin_filter & filters.user(SUDOERS))
 async def unpin(_, message):
     replied = message.reply_to_message
     chat_title = message.chat.title
@@ -75,7 +75,7 @@ async def unpin(_, message):
 
 # --------------------------------------------------------------------------------- #
 
-@app.on_message(filters.command("removephoto") & admin_filter & filters.user(SUDOERS))
+@app.on_message(command(["/removephoto","لادانی_وێنە","/rphoto"]) & admin_filter & filters.user(SUDOERS))
 async def deletechatphoto(_, message):
       
       chat_id = message.chat.id
@@ -94,7 +94,7 @@ async def deletechatphoto(_, message):
 
 # --------------------------------------------------------------------------------- #
 
-@app.on_message(filters.command("setphoto")& admin_filter & filters.user(SUDOERS))
+@app.on_message(command(["/setphoto","دانانی_وێنە","/sphoto"])& admin_filter & filters.user(SUDOERS))
 async def setchatphoto(_, message):
       reply = message.reply_to_message
       chat_id = message.chat.id
@@ -120,7 +120,7 @@ async def setchatphoto(_, message):
 
 # --------------------------------------------------------------------------------- #
 
-@app.on_message(filters.command("settitle")& admin_filter & filters.user(SUDOERS))
+@app.on_message(command(["/settitle","گۆڕینی_ناو","stitle"])& admin_filter & filters.user(SUDOERS))
 async def setgrouptitle(_, message):
     reply = message.reply_to_message
     chat_id = message.chat.id
@@ -156,42 +156,42 @@ async def setgrouptitle(_, message):
 
 
 
-@app.on_message(filters.command("setdiscription") & admin_filter & filters.user(SUDOERS))
+@app.on_message(command(["/setdiscription","گۆڕینی_بایۆ","/sbio"]) & admin_filter & filters.user(SUDOERS))
 async def setg_discription(_, message):
     reply = message.reply_to_message
     chat_id = message.chat.id
     user_id = message.from_user.id
-    msg = await message.reply_text("**ᴘʀᴏᴄᴇssɪɴɢ...**")
+    msg = await message.reply_text("**پڕۆسەی دەکات . . .**")
     if message.chat.type == enums.ChatType.PRIVATE:
-        await msg.edit("**ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ ᴡᴏʀᴋs ᴏɴ ɢʀᴏᴜᴘs!**")
+        await msg.edit("**ئەم فەرمانە تەنیا لە گرووپەکان کاردەکات!**")
     elif reply:
         try:
             discription = message.reply_to_message.text
             admin_check = await app.get_chat_member(chat_id, user_id)
             if admin_check.privileges.can_change_info:
                 await message.chat.set_description(discription)
-                await msg.edit("**sᴜᴄᴄᴇssғᴜʟʟʏ ɴᴇᴡ ɢʀᴏᴜᴘ ᴅɪsᴄʀɪᴘᴛɪᴏɴ ɪɴsᴇʀᴛ!**\nʙʏ {}".format(message.from_user.mention))
+                await msg.edit("**بە سەرکەوتوویی بایۆی گرووپ گۆڕدرا!\nلەلایەن {}**".format(message.from_user.mention))
         except AttributeError:
-            await msg.edit("**ᴛʜᴇ ᴜsᴇʀ ᴍᴜsᴛ ʜᴀᴠᴇ ᴄʜᴀɴɢᴇ ɪɴғᴏ ᴀᴅᴍɪɴ ʀɪɢʜᴛs ᴛᴏ ᴄʜᴀɴɢᴇ ɢʀᴏᴜᴘ ᴅɪsᴄʀɪᴘᴛɪᴏɴ!**")   
+            await msg.edit("**پێویستە ڕۆڵی دەستکاری کردنی زانیاری گرووپت هەبێت بۆ گۆڕینی بایۆی گرووپ!**")   
     elif len(message.command) > 1:
         try:
             discription = message.text.split(None, 1)[1]
             admin_check = await app.get_chat_member(chat_id, user_id)
             if admin_check.privileges.can_change_info:
                 await message.chat.set_description(discription)
-                await msg.edit("**sᴜᴄᴄᴇssғᴜʟʟʏ ɴᴇᴡ ɢʀᴏᴜᴘ ᴅɪsᴄʀɪᴘᴛɪᴏɴ ɪɴsᴇʀᴛ!**\nʙʏ {}".format(message.from_user.mention))
+                await msg.edit("**بە سەرکەوتوویی ناوی گرووپ گۆڕدرا!\nلەلایەن {}**".format(message.from_user.mention))
         except AttributeError:
-            await msg.edit("**ᴛʜᴇ ᴜsᴇʀ ᴍᴜsᴛ ʜᴀᴠᴇ ᴄʜᴀɴɢᴇ ɪɴғᴏ ᴀᴅᴍɪɴ ʀɪɢʜᴛs ᴛᴏ ᴄʜᴀɴɢᴇ ɢʀᴏᴜᴘ ᴅɪsᴄʀɪᴘᴛɪᴏɴ!**")
+            await msg.edit("**پێویستە ڕۆڵی دەستکاری کردنی زانیاری گرووپت هەبێت بۆ گۆڕینی بایۆی گرووپ!**")
     else:
-        await msg.edit("**ʏᴏᴜ ɴᴇᴇᴅ ᴛᴏ ʀᴇᴘʟʏ ᴛᴏ ᴛᴇxᴛ ᴏʀ ɢɪᴠᴇ sᴏᴍᴇ ᴛᴇxᴛ ᴛᴏ ᴄʜᴀɴɢᴇ ɢʀᴏᴜᴘ ᴅɪsᴄʀɪᴘᴛᴏɴ!**")
+        await msg.edit("**پێویستە وڵامی ئەو ناوە بدەیتەوە یان لەگەڵ فەرمان بینووسی بۆ ئەوەی بایۆی گرووپ بگۆڕێت!**")
 
 
 # --------------------------------------------------------------------------------- #
 
-@app.on_message(filters.command("lg")& filters.user(OWNER_ID))
+@app.on_message(command(["/lg","/leave","لێفتکە"])& filters.user(OWNER_ID))
 async def bot_leave(_, message):
     chat_id = message.chat.id
-    text = "**sᴜᴄᴄᴇssғᴜʟʟʏ ʜɪʀᴏ !!.**"
+    text = "**سەرکەوتووبوو سەرۆك!!.**"
     await message.reply_text(text)
     await app.leave_chat(chat_id=chat_id, delete=True)
 
