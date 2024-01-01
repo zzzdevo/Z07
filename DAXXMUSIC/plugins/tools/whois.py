@@ -1,5 +1,5 @@
 from datetime import datetime
-
+from strings.filters import command
 from pyrogram import filters
 from pyrogram.errors import PeerIdInvalid
 from pyrogram.types import Message, User
@@ -21,11 +21,11 @@ def ReplyCheck(message: Message):
 
 infotext = (
     "[{full_name}](tg://user?id={user_id})\n\n"
-    " ➻ ᴜsᴇʀ ɪᴅ: `{user_id}`\n"
-    " ➻ ғɪʀsᴛ ɴᴀᴍᴇ: `{first_name}`\n"
-    " ➻ ʟᴀsᴛ ɴᴀᴍᴇ: `{last_name}`\n"
-    " ➻ ᴜsᴇʀɴᴀᴍᴇ: `@{username}`\n"
-    " ➻ ʟᴀsᴛ sᴇᴇɴ: `{last_online}`"
+    "** ➻ ئایدی بەکارهێنەر**: `{user_id}`\n"
+    "** ➻ ناوی یەکەم**: `{first_name}`\n"
+    "** ➻ ناوی دووەم**: `{last_name}`\n"
+    "** ➻ یوزەر**: `@{username}`\n"
+    "** ➻ ئەکتیڤی**: `{last_online}`"
 )
 
 
@@ -52,7 +52,7 @@ def FullName(user: User):
     return user.first_name + " " + user.last_name if user.last_name else user.first_name
 
 
-@app.on_message(filters.command("whois"))
+@app.on_message(command("whois","کێیە","/ke"))
 async def whois(client, message):
     cmd = message.command
     if not message.reply_to_message and len(cmd) == 1:
@@ -68,7 +68,7 @@ async def whois(client, message):
     try:
         user = await client.get_users(get_user)
     except PeerIdInvalid:
-        await message.reply("I don't know that user.")
+        await message.reply("**نازانم کێیە!**")
         return
     desc = await client.get_chat(get_user)
     desc = desc.description
