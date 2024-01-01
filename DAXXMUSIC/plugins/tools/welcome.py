@@ -70,7 +70,7 @@ def welcomepic(pic, user, chatname, id, uname):
 
 @app.on_message(filters.command("wel") & ~filters.private)
 async def auto_state(_, message):
-    usage = "**Usage:**\n⦿/wel [on|off]\n➤ᴀᴜʀ ʜᴀᴀɴ ᴋᴀɴɢᴇʀs ᴋᴀʀᴏ ᴀʙ ᴄᴏᴘʏ ʙʜᴏsᴀᴅɪᴡᴀʟᴇ\n➤sᴀʟᴏɴ ᴀᴜʀ ʜᴀᴀɴ sᴛʏʟɪsʜ ғᴏɴᴛ ɴᴏᴛ ᴀʟʟᴏᴡᴇᴅ ɪɴ ᴛʜᴇ ᴛʜᴜᴍʙɴᴀɪʟ.!\ᴀᴜʀ ʜᴀᴀɴ ᴀɢʀ ᴋʜᴜᴅ ᴋɪ ᴋᴀʀɴɪ ʜᴀɪ ᴛᴏ ɢᴀᴀɴᴅ ᴍᴀʀᴀᴏ ʙᴇᴛɪᴄʜᴏᴅ"
+    usage = "**بەکارهێنان:**\n⦿/wel [on|off]\n"
     if len(message.command) == 1:
         return await message.reply_text(usage)
     chat_id = message.chat.id
@@ -83,20 +83,20 @@ async def auto_state(_, message):
         state = message.text.split(None, 1)[1].strip().lower()
         if state == "on":
             if A:
-                return await message.reply_text("Special Welcome Already Enabled")
+                return await message.reply_text("**بەخێرهاتن پێشتر چالاککراوە**")
             elif not A:
                 await wlcm.add_wlcm(chat_id)
-                await message.reply_text(f"Enabled Special Welcome in {message.chat.title}")
+                await message.reply_text(f"**بەخێرهاتن چالاککرا بۆ {message.chat.title}**")
         elif state == "off":
             if not A:
-                return await message.reply_text("Special Welcome Already Disabled")
+                return await message.reply_text("**بەخێرهاتن پێشتر لەکارخراوە**")
             elif A:
                 await wlcm.rm_wlcm(chat_id)
-                await message.reply_text(f"Disabled Special Welcome in {message.chat.title}")
+                await message.reply_text(f"**بەخێرهاتن لەکارخرا لە {message.chat.title}**")
         else:
             await message.reply_text(usage)
     else:
-        await message.reply("Only Admins Can Use This Command")
+        await message.reply("**چالاکردنی فەرمانی بەخێرهاتن تەنیا بۆ ئەدمینەکان**")
 
 # ... (copy paster teri maa ki chut  )
 
@@ -132,14 +132,14 @@ async def greet_group(_, member: ChatMemberUpdated):
             member.chat.id,
             photo=welcomeimg,
             caption=f"""
-**Wᴇʟᴄᴏᴍᴇ Tᴏ {member.chat.title}
+** ↫ بەخێربێیت ئەزیزم بۆ {member.chat.title}
 ➖➖➖➖➖➖➖➖➖➖➖➖
-Nᴀᴍᴇ ✧ {user.mention}
-Iᴅ ✧ {user.id}
-Usᴇʀɴᴀᴍᴇ ✧ @{user.username}
+ناو ✧ {user.mention}
+ئایدی ✧ {user.id}
+یوزەر ✧ @{user.username}
 ➖➖➖➖➖➖➖➖➖➖➖➖**
 """,
-            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(f"⦿ ᴀᴅᴅ ᴍᴇ ⦿", url=f"https://t.me/YumikooBot?startgroup=true")]])
+            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(f"⦿ زیادم بکە بۆ گرووپت ⦿", url=f"https://t.me/IQMCBOT?startgroup=true")]])
         )
     except Exception as e:
         LOGGER.error(e)
