@@ -12,6 +12,7 @@ hachoir
 Faker
 pydub
 pycountry
+ntgcalls
 heroku3
 apscheduler
 motor
