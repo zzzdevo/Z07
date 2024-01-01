@@ -2,6 +2,7 @@ from pyrogram import filters
 from pyrogram.types import *
 from DAXXMUSIC import app
 from gpytranslate import Translator
+from strings.filters import command
 
 #.......
 
@@ -9,11 +10,11 @@ trans = Translator()
 
 #......
 
-@app.on_message(filters.command("tr"))
+@app.on_message(command(["/tr","وەرگێران","وەرگێڕان"]))
 async def translate(_, message) -> None:
     reply_msg = message.reply_to_message
     if not reply_msg:
-        await message.reply_text("ʀᴇᴘʟʏ ᴛᴏ ᴀ ᴍᴇssᴀɢᴇ ᴛᴏ ᴛʀᴀɴsʟᴀᴛᴇ ɪᴛ !")
+        await message.reply_text("**➠ | وەڵامی نامەکە بدەوە کە دەتەوێ وەرگێڕانی بۆ بکەم\nبەکارهێنان:\n/tr en ڕیپلەی نامەیە بکە وەریدەگێڕێتە سەر زمانی ئینگلیزی**")
         return
     if reply_msg.caption:
         to_translate = reply_msg.caption
@@ -32,7 +33,7 @@ async def translate(_, message) -> None:
         dest = "en"
     translation = await trans(to_translate, sourcelang=source, targetlang=dest)
     reply = (
-        f"ᴛʀᴀɴsʟᴀᴛᴇᴅ ғʀᴏᴍ {source} to {dest}:\n"
-        f"{translation.text}"
+        f"**وەرگێڕدرا لە {source} بۆ {dest}:\n\n**"
+        f"**{translation.text}**"
     )
     await message.reply_text(reply)
