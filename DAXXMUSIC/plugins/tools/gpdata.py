@@ -1,7 +1,7 @@
 from pyrogram import enums
 from pyrogram.enums import ChatType
 from pyrogram import filters, Client
-from DAXXMUSICimport app
+from DAXXMUSIC import app
 from config import OWNER_ID
 from DAXXMUSIC.misc import SUDOERS
 from pyrogram.types import Message
