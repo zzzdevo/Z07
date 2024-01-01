@@ -1,7 +1,7 @@
 
 import random
 import re
-from config import MUSIC_BOT_NAME 
+from config import BOT_NAME 
 from strings.filters import command
 from pyrogram import Client
 from pyrogram.types import Message
