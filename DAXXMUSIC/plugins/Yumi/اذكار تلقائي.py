@@ -2,7 +2,7 @@ import time
 import asyncio
 from config import OWNER_ID
 from pyrogram import Client, filters
-from YukkiMusic import app
+from DAXXMUSIC import app
 import random
 from strings.filters import command
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
