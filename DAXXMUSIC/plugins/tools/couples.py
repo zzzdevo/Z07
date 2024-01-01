@@ -6,7 +6,7 @@ from PIL import Image , ImageDraw
 from pyrogram import *
 from pyrogram.types import *
 from pyrogram.enums import *
-
+from strings.filters import command
 #BOT FILE NAME
 from DAXXMUSIC import app as app
 from DAXXMUSIC.mongo.couples_db import _get_image, get_couple
@@ -31,15 +31,15 @@ def dt_tom():
 tomorrow = str(dt_tom())
 today = str(dt()[0])
 
-@app.on_message(filters.command("couples"))
+@app.on_message(command(["couples", "kapl", "قل", "کەپل", "کەپڵ"]))
 async def ctest(_, message):
     cid = message.chat.id
     if message.chat.type == ChatType.PRIVATE:
-        return await message.reply_text("This command only works in groups.")
+        return await message.reply_text("**تەنیا لە گرووپ کارەکات😂🙂**")
     try:
      #  is_selected = await get_couple(cid, today)
      #  if not is_selected:
-         msg = await message.reply_text("Generating Couples Image...")
+         msg = await message.reply_text("**دوو ئاشقە شێتەکە دیاری دەکرێت😂🙂🫶🏻!**")
          #GET LIST OF USERS
          list_of_users = []
 
@@ -96,11 +96,11 @@ async def ctest(_, message):
          img.save(f'test_{cid}.png')
     
          TXT = f"""
-**𝐓ᴏᴅᴀʏ's 𝐒ᴇʟᴇᴄᴛᴇᴅ 𝐂ᴏᴜᴘʟᴇs 🎉 :
+**ئەمڕۆ کەپڵەکان دیاری کران 😂🎉 :
 ➖➖➖➖➖➖➖➖➖➖➖➖
 {N1} + {N2} = ❣️
 ➖➖➖➖➖➖➖➖➖➖➖➖
-𝐍ᴇxᴛ 𝐂ᴏᴜᴘʟᴇs 𝐖ɪʟʟ 𝐁ᴇ 𝐒ᴇʟᴇᴄᴛᴇᴅ 𝐎ɴ {tomorrow} !!**
+کەپڵی نوێ بەیانی دیاری دەکرێت {tomorrow} 😂🙂🫶🏻!**
 """
     
          await message.reply_photo(f"test_{cid}.png", caption=TXT)
@@ -113,7 +113,7 @@ async def ctest(_, message):
     
          
       # elif is_selected:
-      #   msg = await message.reply_text("𝐆ᴇᴛᴛɪɴɢ 𝐓ᴏᴅᴀʏs 𝐂ᴏᴜᴘʟᴇs 𝐈ᴍᴀɢᴇ...")
+      #   msg = await message.reply_text("**دوو ئاشقە شێتەکە دیاری دەکرێت😂🙂🫶🏻!**")
       #   b = await _get_image(cid)
        #  c1_id = int(is_selected["c1_id"])
        #  c2_id = int(is_selected["c2_id"])
@@ -121,11 +121,11 @@ async def ctest(_, message):
         # c2_name = (await app.get_users(c2_id)).first_name
          
       #   TXT = f"""
-#**𝐓ᴏᴅᴀʏ's 𝐒ᴇʟᴇᴄᴛᴇᴅ 𝐂ᴏᴜᴘʟᴇs 🎉 :
+#**ئەمڕۆ کەپڵەکان دیاری کران 😂🎉 :
 #➖➖➖➖➖➖➖➖➖➖➖➖
 #[{c1_name}](tg://openmessage?user_id={c1_id}) + [{c2_name}](tg://openmessage?user_id={c2_id}) = ❣️
 #➖➖➖➖➖➖➖➖➖➖➖➖
-#𝐍ᴇxᴛ 𝐂ᴏᴜᴘʟᴇs 𝐖ɪʟʟ 𝐁ᴇ 𝐒ᴇʟᴇᴄᴛᴇᴅ 𝐎ɴ {tomorrow} !!**
+#کەپڵی نوێ بەیانی دیاری دەکرێت {tomorrow} 😂🙂🫶🏻!**
 #"""
  #        await message.reply_photo(b, caption=TXT)
         # await msg.delete()
