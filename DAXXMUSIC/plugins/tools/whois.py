@@ -52,7 +52,7 @@ def FullName(user: User):
     return user.first_name + " " + user.last_name if user.last_name else user.first_name
 
 
-@app.on_message(command("whois","کێیە","/ke"))
+@app.on_message(command(["whois","کێیە","/ke"]))
 async def whois(client, message):
     cmd = message.command
     if not message.reply_to_message and len(cmd) == 1:
