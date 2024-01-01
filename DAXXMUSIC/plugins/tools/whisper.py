@@ -8,7 +8,7 @@ from pyrogram.types import (
 
 whisper_db = {}
 
-switch_btn = InlineKeyboardMarkup([[InlineKeyboardButton("💒 Start Whisper", switch_inline_query_current_chat="")]])
+switch_btn = InlineKeyboardMarkup([[InlineKeyboardButton("⚡ دەستپێکردنی چرپە ⚡", switch_inline_query_current_chat="")]])
 
 async def _whisper(_, inline_query):
     data = inline_query.query
@@ -18,8 +18,8 @@ async def _whisper(_, inline_query):
         mm = [
             InlineQueryResultArticle(
                 title="💒 Whisper",
-                description=f"@{BOT_USERNAME} [ USERNAME | ID ] [ TEXT ]",
-                input_message_content=InputTextMessageContent(f"💒 Usage:\n\n@{BOT_USERNAME} [ USERNAME | ID ] [ TEXT ]"),
+                description=f"@{BOT_USERNAME} [ یوزەر | ئایدی ] [ نووسین ]",
+                input_message_content=InputTextMessageContent(f"**💒 بەکارهێنان**:\n\n@{BOT_USERNAME} [ یوزەر | ئایدی ] [ نووسین ]"),
                 thumb_url="https://te.legra.ph/file/3eec679156a393c6a1053.jpg",
                 reply_markup=switch_btn
             )
@@ -37,20 +37,20 @@ async def _whisper(_, inline_query):
             mm = [
                 InlineQueryResultArticle(
                     title="💒 Whisper",
-                    description="Invalid username or ID!",
-                    input_message_content=InputTextMessageContent("Invalid username or ID!"),
+                    description="**یوزەر یان ئایدی هەڵەیە!**",
+                    input_message_content=InputTextMessageContent("**یوزەر یان ئایدی هەڵەیە!**"),
                     thumb_url="https://te.legra.ph/file/3eec679156a393c6a1053.jpg",
                     reply_markup=switch_btn
                 )
             ]
         
         try:
-            whisper_btn = InlineKeyboardMarkup([[InlineKeyboardButton("💒 Whisper", callback_data=f"fdaywhisper_{inline_query.from_user.id}_{user.id}")]])
+            whisper_btn = InlineKeyboardMarkup([[InlineKeyboardButton("⚡ چرپە‌ ⚡", callback_data=f"fdaywhisper_{inline_query.from_user.id}_{user.id}")]])
             one_time_whisper_btn = InlineKeyboardMarkup([[InlineKeyboardButton("🔩 One-Time Whisper", callback_data=f"fdaywhisper_{inline_query.from_user.id}_{user.id}_one")]])
             mm = [
                 InlineQueryResultArticle(
                     title="💒 Whisper",
-                    description=f"Send a Whisper to {user.first_name}!",
+                    description=f"چرپەنامەیەكت نارد بۆ {user.first_name}!",
                     input_message_content=InputTextMessageContent(f"💒 You are sending a whisper to {user.first_name}.\n\nType your message/sentence."),
                     thumb_url="https://te.legra.ph/file/3eec679156a393c6a1053.jpg",
                     reply_markup=whisper_btn
@@ -109,9 +109,9 @@ async def whispes_cb(_, query):
 async def in_help():
     answers = [
         InlineQueryResultArticle(
-            title="💒 Whisper",
-            description=f"@YumikooBot [USERNAME | ID] [TEXT]",
-            input_message_content=InputTextMessageContent(f"**📍Usage:**\n\n@YumikooBot (Target Username or ID) (Your Message).\n\n**Example:**\n@YumikooBot @username I Wanna Phuck You"),
+            title="⚡ چرپە ⚡",
+            description=f"@IQMCBOT [یوزەر | ئایدی] [ نووسین ]",
+            input_message_content=InputTextMessageContent(f"**📍بەکارهێنان:**\n\n@IQMCBOT (یوزەر یان ئایدی کەسەکە) (نامەکەت).\n\n**نموونە:**\n@IQMCBOT @IQ7amo سەرۆک"),
             thumb_url="https://te.legra.ph/file/3eec679156a393c6a1053.jpg",
             reply_markup=switch_btn
         )
