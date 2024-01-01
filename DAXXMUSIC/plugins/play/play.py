@@ -4,7 +4,7 @@ import string
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardMarkup, InputMediaPhoto, Message
 from pytgcalls.exceptions import NoActiveGroupCall
-
+from strings.filters import command
 import config
 from DAXXMUSIC import Apple, Resso, SoundCloud, Spotify, Telegram, YouTube, app
 from DAXXMUSIC.core.call import DAXX
@@ -26,9 +26,32 @@ from config import BANNED_USERS, lyrical
 
 
 @app.on_message(
-   filters.command(["play", "vplay", "cplay", "cvplay", "playforce", "vplayforce", "cplayforce", "cvplayforce"] ,prefixes=["/", "!", "%", ",", "", ".", "@", "#"])
-            
-    & filters.group
+     command(
+        [
+            "play",
+            "vplay",
+            "cplay",
+            "cvplay",
+            "playforce",
+            "vplayforce",
+            "cplayforce",
+            "cvplayforce",
+            "/play",
+            "/vplay", 
+            "cplay", 
+            "g", 
+            "پلەی", 
+            "video",
+            "پ کەناڵ",
+            "gorani",
+            "ڤیدیو",
+            "سوڕەتی",
+            "سورەتی",
+            "سورەت",
+            "سوڕەت",
+        ]
+    )
+    & ~filters.private
     & ~BANNED_USERS
 )
 @PlayWrapper
@@ -50,8 +73,8 @@ async def play_commnd(
     slider = None
     plist_type = None
     spotify = None
-    user_id = message.from_user.id
-    user_name = message.from_user.first_name
+    user_id = message.from_user.id if message.from_user else "033365581"
+    user_name = message.from_user.first_name if message.from_user else "None"
     audio_telegram = (
         (message.reply_to_message.audio or message.reply_to_message.voice)
         if message.reply_to_message
