@@ -5,7 +5,7 @@ from config import MUSIC_BOT_NAME
 from strings.filters import command
 from pyrogram import Client
 from pyrogram.types import Message
-from YukkiMusic import app
+from DAXXMUSIC import app
 
 @app.on_message(command("ز"))
 async def zahrafa(c: Client, m: Message):
