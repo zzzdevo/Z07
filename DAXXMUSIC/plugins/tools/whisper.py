@@ -8,7 +8,7 @@ from pyrogram.types import (
 
 whisper_db = {}
 
-switch_btn = InlineKeyboardMarkup([[InlineKeyboardButton("⚡ دەستپێکردنی چرپە ⚡", switch_inline_query_current_chat="")]])
+switch_btn = InlineKeyboardMarkup([[InlineKeyboardButton("⚡ دەستپێکردنی چرپەنامە ⚡", switch_inline_query_current_chat="")]])
 
 async def _whisper(_, inline_query):
     data = inline_query.query
@@ -17,7 +17,7 @@ async def _whisper(_, inline_query):
     if len(data.split()) < 2:
         mm = [
             InlineQueryResultArticle(
-                title="💒 Whisper",
+                title="⚡ چرپەنامە ⚡",
                 description=f"@{BOT_USERNAME} [ یوزەر | ئایدی ] [ نووسین ]",
                 input_message_content=InputTextMessageContent(f"**💒 بەکارهێنان**:\n\n@{BOT_USERNAME} [ یوزەر | ئایدی ] [ نووسین ]"),
                 thumb_url="https://te.legra.ph/file/3eec679156a393c6a1053.jpg",
@@ -36,7 +36,7 @@ async def _whisper(_, inline_query):
         except:
             mm = [
                 InlineQueryResultArticle(
-                    title="💒 Whisper",
+                    title="⚡ چرپەنامە ⚡",
                     description="**یوزەر یان ئایدی هەڵەیە!**",
                     input_message_content=InputTextMessageContent("**یوزەر یان ئایدی هەڵەیە!**"),
                     thumb_url="https://te.legra.ph/file/3eec679156a393c6a1053.jpg",
@@ -45,20 +45,20 @@ async def _whisper(_, inline_query):
             ]
         
         try:
-            whisper_btn = InlineKeyboardMarkup([[InlineKeyboardButton("⚡ چرپە‌ ⚡", callback_data=f"fdaywhisper_{inline_query.from_user.id}_{user.id}")]])
-            one_time_whisper_btn = InlineKeyboardMarkup([[InlineKeyboardButton("🔩 One-Time Whisper", callback_data=f"fdaywhisper_{inline_query.from_user.id}_{user.id}_one")]])
+            whisper_btn = InlineKeyboardMarkup([[InlineKeyboardButton("⚡ چرپەنامە ⚡", callback_data=f"fdaywhisper_{inline_query.from_user.id}_{user.id}")]])
+            one_time_whisper_btn = InlineKeyboardMarkup([[InlineKeyboardButton("🔩 چرپەنامەی یەکجاری", callback_data=f"fdaywhisper_{inline_query.from_user.id}_{user.id}_one")]])
             mm = [
                 InlineQueryResultArticle(
-                    title="💒 Whisper",
+                    title="⚡ چرپەنامە ⚡",
                     description=f"چرپەنامەیەكت نارد بۆ {user.first_name}!",
-                    input_message_content=InputTextMessageContent(f"💒 You are sending a whisper to {user.first_name}.\n\nType your message/sentence."),
+                    input_message_content=InputTextMessageContent(f"**⚡ تۆ چرپەیەکت نارد بۆ {user.first_name}.\n\n پەیامەکەت/ڕستەکەت بنووسە.**"),
                     thumb_url="https://te.legra.ph/file/3eec679156a393c6a1053.jpg",
                     reply_markup=whisper_btn
                 ),
                 InlineQueryResultArticle(
                     title="🔩 One-Time Whisper",
                     description=f"Send a one-time whisper to {user.first_name}!",
-                    input_message_content=InputTextMessageContent(f"🔩 You are sending a one-time whisper to {user.first_name}.\n\nType your message/sentence."),
+                    input_message_content=InputTextMessageContent(f"**🔩 تۆ چرپەیەکی یەکجارەکی دەنێری بۆ {user.first_name}.\n\n پەیامەکەت/ڕستەکەت بنووسە.**"),
                     thumb_url="https://te.legra.ph/file/3eec679156a393c6a1053.jpg",
                     reply_markup=one_time_whisper_btn
                 )
@@ -82,34 +82,34 @@ async def whispes_cb(_, query):
     to_user = int(data[2])
     user_id = query.from_user.id
     
-    if user_id not in [from_user, to_user, 6691393517]:
+    if user_id not in [from_user, to_user, 833360381]:
         try:
-            await _.send_message(from_user, f"{query.from_user.mention} is trying to open your whisper.")
+            await _.send_message(from_user, f"{query.from_user.mention} هەوڵدەدات چرپەی تۆ بکاتەوە")
         except Unauthorized:
             pass
         
-        return await query.answer("This whisper is not for you 🚧", show_alert=True)
+        return await query.answer("ئەم چرپەیە بۆتۆ نییە 🚧", show_alert=True)
     
     search_msg = f"{from_user}_{to_user}"
     
     try:
         msg = whisper_db[search_msg]
     except:
-        msg = "🚫 Error!\n\nWhisper has been deleted from the database!"
+        msg = "**🚫 هەڵە !\n\nچرپەنامە سڕدرایەوە لە داتابەیس**"
     
-    SWITCH = InlineKeyboardMarkup([[InlineKeyboardButton("Go Inline 🪝", switch_inline_query_current_chat="")]])
+    SWITCH = InlineKeyboardMarkup([[InlineKeyboardButton("بڕۆ بۆ دووگمە 🪝", switch_inline_query_current_chat="")]])
     
     await query.answer(msg, show_alert=True)
     
     if len(data) > 3 and data[3] == "one":
         if user_id == to_user:
-            await query.edit_message_text("📬 Whisper has been read!\n\nPress the button below to send a whisper!", reply_markup=SWITCH)
+            await query.edit_message_text("**📬 چرپە خوێندرایەوە!\n\nبۆ ناردنی چرپە دوگمەی خوارەوە داگرە!**", reply_markup=SWITCH)
 
 
 async def in_help():
     answers = [
         InlineQueryResultArticle(
-            title="⚡ چرپە ⚡",
+            title="⚡ چرپەنامە ⚡",
             description=f"@IQMCBOT [یوزەر | ئایدی] [ نووسین ]",
             input_message_content=InputTextMessageContent(f"**📍بەکارهێنان:**\n\n@IQMCBOT (یوزەر یان ئایدی کەسەکە) (نامەکەت).\n\n**نموونە:**\n@IQMCBOT @IQ7amo سەرۆک"),
             thumb_url="https://te.legra.ph/file/3eec679156a393c6a1053.jpg",
