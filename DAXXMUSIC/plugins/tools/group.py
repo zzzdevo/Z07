@@ -4,28 +4,25 @@ from DAXXMUSIC import app
 from config import OWNER_ID
 # vc on
 @app.on_message(filters.video_chat_started)
-async def brah(_, msg):
-       await msg.reply("ᴠᴏɪᴄᴇ ᴄʜᴀᴛ sᴛᴀʀᴛᴇᴅ")
-# vc off
+async def brah(client, message):
+       await message.reply("<b>• ئەدمین هەڵسا بە کردنەوەی تێل ✓</b>")
 @app.on_message(filters.video_chat_ended)
-async def brah2(_, msg):
-       await msg.reply("**ᴠᴏɪᴄᴇ ᴄʜᴀᴛ ᴇɴᴅᴇᴅ**")
-
-# invite members on vc
+async def brah2(client, message):
+       await message.reply("<b>• ئەدمین هەڵسا بە داخستنی تێل ✗</b>")
 @app.on_message(filters.video_chat_members_invited)
-async def brah3(app :app, message:Message):
-           text = f"{message.from_user.mention} ɪɴᴠɪᴛᴇᴅ "
+async def fuckoff(client, message):
+           text = f"<b>• لەلایەن ← {message.from_user.mention} </b>"
            x = 0
            for user in message.video_chat_members_invited.users:
              try:
-               text += f"[{user.first_name}](tg://user?id={user.id}) "
+               text += f"<b>\n• بانگێشتکرایی ←[{user.first_name}](tg://user?id={user.id}) </b>"
                x += 1
              except Exception:
                pass
            try:
-             await message.reply(f"{text} 😉")
+             await message.reply(f"{text}")
            except:
-             pass
+             pass  
 
 
 ####
