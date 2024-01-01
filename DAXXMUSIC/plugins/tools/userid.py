@@ -4,16 +4,16 @@ from pyrogram.enums import ParseMode
 from strings.filters import command
 
 
-@app.on_message(command(["me", "/me","من"]))
+@app.on_message(command(["me", "/me",]))
 def ids(_, message):
     reply = message.reply_to_message
     if reply:
         message.reply_text(
-            f"**ئایدیەکەت**: `{message.from_user.id}`\n{reply.from_user.first_name}'s ئایدی: {reply.from_user.id}\n**ئایدی گرووپ**: `{message.chat.id}`"
+            f"**ئایدیەکەت**: `{message.from_user.id}`\n{reply.from_user.first_name}' ئایدی: {reply.from_user.id}\n**ئایدی گرووپ**: `{message.chat.id}`"
         )
     else:
         message.reply(
-            f"ʏᴏᴜʀ ɪᴅ: {message.from_user.id}\nᴄʜᴀᴛ ɪᴅ: {message.chat.id}"
+            f"**ئایدیەکەت:** `{message.from_user.id}`\n**ئایدی گرووپ:** `{message.chat.id}`"
         )
 
 ####
