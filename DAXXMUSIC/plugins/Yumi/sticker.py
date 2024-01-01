@@ -1,5 +1,5 @@
 from strings.filters import command
-from YukkiMusic import app
+from DAXXMUSIC import app
 from pyrogram import Client, filters
 from pyrogram.types import Message
 from pyrogram.enums import ParseMode, ChatMemberStatus
