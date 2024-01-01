@@ -3,7 +3,7 @@ import asyncio
 from pyrogram import filters
 from pyrogram.enums import ChatMembersFilter
 from pyrogram.errors import FloodWait
-
+from strings.filters import command
 from DAXXMUSIC import app
 from DAXXMUSIC.misc import SUDOERS
 from DAXXMUSIC.utils.database import (
@@ -20,7 +20,7 @@ from config import adminlist
 IS_BROADCASTING = False
 
 
-@app.on_message(filters.command("broadcast") & SUDOERS)
+@app.on_message(command(["/broadcast","/forward", "ناردن", "فۆروارد"]) & SUDOERS)
 @language
 async def braodcast_message(client, message, _):
     global IS_BROADCASTING
