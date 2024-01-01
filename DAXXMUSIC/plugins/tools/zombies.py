@@ -123,7 +123,7 @@ async def admins(client, message):
 
 # ------------------------------------------------------------------------------- #
 
-@app.on_message(command("bots","بۆتەکان","/bots"))
+@app.on_message(command(["bots","بۆتەکان","/bots"]))
 async def bots(client, message):  
   try:    
     botList = []
