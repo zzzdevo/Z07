@@ -6,10 +6,11 @@ from DAXXMUSIC.mongo.filtersdb import *
 from DAXXMUSIC.utils.filters_func import GetFIlterMessage, get_text_reason, SendFilterMessage
 from DAXXMUSIC.utils.yumidb import user_admin
 from pyrogram import filters
+from strings.filters import command
 from pyrogram.enums import ChatMemberStatus
 from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
 
-@app.on_message(filters.command("filter") & admin_filter)
+@app.on_message(command("/filter","زیادکردنی چات","filter","/chat") & admin_filter)
 @user_admin
 async def _filter(client, message):
     
@@ -69,7 +70,7 @@ async def FilterCheckker(client, message):
                 data_type=data_type
             )
 
-@app.on_message(filters.command('filters') & filters.group)
+@app.on_message(command(["/filters","filters","چاتەکان"]) & filters.group)
 async def _filters(client, message):
     chat_id = message.chat.id
     chat_title = message.chat.title 
@@ -93,7 +94,7 @@ async def _filters(client, message):
     )
 
 
-@app.on_message(filters.command('stopall') & admin_filter)
+@app.on_message(filters.command(["/stopall","سڕینەوەی چاتەکان","سرینەوەی چاتەکان"]) & admin_filter)
 async def stopall(client, message):
     chat_id = message.chat.id
     chat_title = message.chat.title 
@@ -131,7 +132,7 @@ async def stopall_callback(client, callback_query: CallbackQuery):
 
 
 
-@app.on_message(filters.command('stopfilter') & admin_filter)
+@app.on_message(command(["stopfilter","stopchat","سرینەوەی چات","سڕینەوەی چات"]) & admin_filter)
 @user_admin
 async def stop(client, message):
     chat_id = message.chat.id
