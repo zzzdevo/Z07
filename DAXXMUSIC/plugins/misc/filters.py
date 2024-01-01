@@ -10,7 +10,7 @@ from strings.filters import command
 from pyrogram.enums import ChatMemberStatus
 from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
 
-@app.on_message(command("/filter","زیادکردنی چات","filter","/chat") & admin_filter)
+@app.on_message(command(["/filter","زیادکردنی چات","filter","/chat"]) & admin_filter)
 @user_admin
 async def _filter(client, message):
     
