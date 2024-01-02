@@ -1,65 +1,49 @@
-import os, time
-import openai
-from pyrogram import filters
+import requests
+import json
 from DAXXMUSIC import app
-from pyrogram.enums import ChatAction, ParseMode
-from gtts import gTTS
+from pyrogram import Client
+from pyrogram import filters
+from pyrogram.types import Message
+from pyrogram import Client, filters
+from strings.filters import command
 
+url = 'https://us-central1-chat-for-chatgpt.cloudfunctions.net/basicUserRequestBeta'
 
+def gpt(text) -> str:
+    headers = {
+        'Host': 'us-central1-chat-for-chatgpt.cloudfunctions.net',
+        'Connection': 'keep-alive',
+        'If-None-Match': 'W/"1c3-Up2QpuBs2+QUjJl/C9nteIBUa00"',
+        'Accept': '*/*',
+        'User-Agent': 'com.tappz.aichat/1.2.2 iPhone/15.6.1 hw/iPhone8_2',
+        'Content-Type': 'application/json',
+        'Accept-Language': 'en-GB,en;q=0.9'
+    }
 
-openai.api_key = os.environ["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"]
+    data = {
+        'data': {
+            'message':text,
+        }
+    }
 
-
-
-
-@app.on_message(filters.command(["chatgpt","ai","ask","iq"],  prefixes=["+", ".", "/", "-", "?", "$","#","&"]))
-async def chat(app :app, message):
-    
+    response = requests.post(url, headers=headers, data=json.dumps(data))
     try:
-        start_time = time.time()
-        await app.send_chat_action(message.chat.id, ChatAction.TYPING)
-        if len(message.command) < 2:
-            await message.reply_text(
-            "**ʜᴇʟʟᴏ sɪʀ**\n**ᴇxᴀᴍᴘʟᴇ:-**`.ask How to set girlfriend ?`")
-        else:
-            a = message.text.split(' ', 1)[1]
-            MODEL = "gpt-3.5-turbo"
-            resp = openai.ChatCompletion.create(model=MODEL,messages=[{"role": "user", "content": a}],
-    temperature=0.2)
-            x=resp['choices'][0]["message"]["content"]
-            await message.reply_text(f"{x}")     
-    except Exception as e:
-        await message.reply_text(f"**ᴇʀʀᴏʀ**: {e} ")        
+        result = response.json()["result"]["choices"][0]["text"]
+        return result
+    except:
+        return None
 
+def reply_gpt(client, message:Message):
+    text = message.text.split("ask")[1]
+    reply_text = gpt(text)
+    chat_id = message.chat.id
+    if message.reply_to_message is not None:
+        message_id = message.reply_to_message.id
+    else:
+        message_id = None
+    client.send_message(chat_id=chat_id, text=reply_text + "\n\n\n**@IQ7amo نوێترین ڤێرژنی زیرەکی دەستکرد لەلایەن گەشەپێدەر**", reply_to_message_id=message_id)
 
-
-
-
-
-@app.on_message(filters.command(["assis"],  prefixes=["+", ".", "/", "-", "?", "$","#","&"]))
-async def chat(app :app, message):
-    
-    try:
-        start_time = time.time()
-        await app.send_chat_action(message.chat.id, ChatAction.TYPING)
-        if len(message.command) < 2:
-            await message.reply_text(
-            "**ʜᴇʟʟᴏ sɪʀ**\n**ᴇxᴀᴍᴘʟᴇ:-**`.assis How to set girlfriend ?`")
-        else:
-            a = message.text.split(' ', 1)[1]
-            MODEL = "gpt-3.5-turbo"
-            resp = openai.ChatCompletion.create(model=MODEL,messages=[{"role": "user", "content": a}],
-    temperature=0.2)
-            x=resp['choices'][0]["message"]["content"]
-            text = x    
-            tts = gTTS(text, lang='en')
-            tts.save('output.mp3')
-            await app.send_voice(chat_id=message.chat.id, voice='output.mp3')
-            os.remove('output.mp3')            
-            
-    except Exception as e:
-        await message.reply_text(f"**ᴇʀʀᴏʀ**: {e} ") 
-
-
-
-##### Bing
+@app.on_message(command(["/iq","/ask","/ai","iq"]))
+def reply(client, message:Message):
+    message.reply_text(f"•⎆┊** بەخێربێیت ئەزیزم {message.from_user.mention}\n\nبۆ بەکارهێنانی ئەم فەرمانە فەرمان بنووسە لەگەڵئەو  پرسیارەکەی دەتەوێت♥·**")
+    reply_gpt(client, message)
