@@ -2,6 +2,7 @@ import asyncio, os, time, aiohttp
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 from asyncio import sleep
+from strings.filters import command
 from DAXXMUSIC import app as Hiroko
 from pyrogram import filters, Client, enums
 from pyrogram.enums import ParseMode
@@ -99,7 +100,7 @@ async def userstatus(user_id):
 
 # --------------------------------------------------------------------------------- #
 
-@Hiroko.on_message(filters.command(["info", "userinfo","ا","ئایدی"], prefixes=["/", "!", "%", ",", "", ".", "@", "#"]))
+@Hiroko.on_message(command(["/info", "/userinfo","info","id","ا","ئایدی"]))
 async def userinfo(_, message):
     chat_id = message.chat.id
     user_id = message.from_user.id
