@@ -1,13 +1,14 @@
 from asyncio import sleep
 from pyrogram import filters
 from pyrogram.enums import ChatType
+from DAXXMUSIC.misc import SUDOERS
 from pyrogram.errors import MessageDeleteForbidden, RPCError
 from pyrogram.types import Message
 from DAXXMUSIC.utils.daxx_ban import admin_filter
 from DAXXMUSIC import app
 
 
-@app.on_message(filters.command("purge") & admin_filter)
+@app.on_message(filters.command("purge") & admin_filter & SUDOERS)
 async def purge(app: app, msg: Message):
     
     if msg.chat.type != ChatType.SUPERGROUP:
@@ -47,7 +48,7 @@ async def purge(app: app, msg: Message):
 
 
 
-@app.on_message(filters.command("spurge") & admin_filter)
+@app.on_message(filters.command("spurge") & admin_filter & SUDOERS)
 async def spurge(app: app, msg: Message):
 
     if msg.chat.type != ChatType.SUPERGROUP:
@@ -78,7 +79,7 @@ async def spurge(app: app, msg: Message):
     return
 
 
-@app.on_message(filters.command("del") & admin_filter)
+@app.on_message(filters.command("del") & admin_filter & SUDOERS)
 async def del_msg(app: app, msg: Message):
     if msg.chat.type != ChatType.SUPERGROUP:
         await msg.reply_text(text="**ناتوانم نامەکان پاکبکەمەوە لە گرووپێکی بنەڕەتیدا گرووپێکی گشتی دروست بکە🖤•**")
