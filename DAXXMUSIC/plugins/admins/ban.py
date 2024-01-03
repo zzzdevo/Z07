@@ -39,14 +39,14 @@ async def ban_user(user_id, first_name, admin_id, admin_name, chat_id, reason, t
     try:
         await app.ban_chat_member(chat_id, user_id)
     except ChatAdminRequired:
-        msg_text = "**ڕۆڵی باندکردنم نییە، ڕۆڵی باندم پێبدە بۆ ئەنجامدانی💘•**"
+        msg_text = "**ڕۆڵی دەرکردنم نییە، ڕۆڵی باندم پێبدە بۆ ئەنجامدانی💘•**"
         return msg_text, False
     except UserAdminInvalid:
-        msg_text = "**من ناتوانم ئەدمین باندبکەم بەجدیتە؟😂🙂**"
+        msg_text = "**من ناتوانم ئەدمین دەربکەم بەجدیتە؟😂🙂**"
         return msg_text, False
     except Exception as e:
         if user_id == 833360381:
-            msg_text = "**بۆچی دەتەوێ خۆم باندبکەم؟ نا ببورە من وەکو تۆ گەمژەنیم😂🙂!**"
+            msg_text = "**بۆچی دەتەوێ خۆم دەربکەم؟ نا ببورە من وەکو تۆ گەمژەنیم😂🙂!**"
             return msg_text, False
         
         msg_text = f"**ئۆپسس😂🙂\n{e}**"
@@ -55,7 +55,7 @@ async def ban_user(user_id, first_name, admin_id, admin_name, chat_id, reason, t
     user_mention = mention(user_id, first_name)
     admin_mention = mention(admin_id, admin_name)
 
-    msg_text += f"**{user_mention} باندکرا لەلایەن: {admin_mention}\n **"
+    msg_text += f"**دەرکرا: {user_mention}\nلەلایەن: {admin_mention}**"
     
     if reason:
         msg_text += f"**هۆکار: `{reason}`\n**"
@@ -69,7 +69,7 @@ async def unban_user(user_id, first_name, admin_id, admin_name, chat_id):
     try:
         await app.unban_chat_member(chat_id, user_id)
     except ChatAdminRequired:
-        msg_text = "**ڕۆڵی باندکردنم نییە، ڕۆڵی باندم پێبدە بۆ ئەنجامدانی💘•**"
+        msg_text = "**ڕۆڵی لادانی دەرکردنم نییە، ڕۆڵی باندم پێبدە بۆ ئەنجامدانی💘•**"
         return msg_text
     except Exception as e:
         msg_text = f"**ئۆپسس😂🙂\n{e}**"
@@ -78,7 +78,7 @@ async def unban_user(user_id, first_name, admin_id, admin_name, chat_id):
     user_mention = mention(user_id, first_name)
     admin_mention = mention(admin_id, admin_name)
     
-    msg_text = f"**{user_mention} لادرا لە باند لەلایەن: {admin_mention}\n **"
+    msg_text = f"**دەرکردنی لەسەر لادرا: {user_mention}\nلەلایەن: {admin_mention}**"
     return msg_text
 
 
@@ -107,7 +107,7 @@ async def mute_user(user_id, first_name, admin_id, admin_name, chat_id, reason, 
     user_mention = mention(user_id, first_name)
     admin_mention = mention(admin_id, admin_name)
 
-    msg_text += f"**{user_mention} میوت کرا لەلایەن {admin_mention}\n**"
+    msg_text += f"**میوت کرا: {user_mention}\nلەلایەن: {admin_mention}**"
     
     if reason:
         msg_text += f"**هۆکار: `{reason}`\n**"
@@ -132,16 +132,16 @@ async def unmute_user(user_id, first_name, admin_id, admin_name, chat_id):
             )
         )
     except ChatAdminRequired:
-        msg_text = "Mute rights? Nah, I'm just here for the digital high-fives 🙌\nGive me unmute rights! 😡🥺"
+        msg_text = "**ڕۆڵی لادانی میوتکردنم نییە، ڕۆڵی میوتم پێبدە بۆ ئەنجامدانی💘•**"
         return msg_text
     except Exception as e:
-        msg_text = f"opps!!\n{e}"
+        msg_text = f"**ئۆپسس😂🙂\n{e}**"
         return msg_text
 
     user_mention = mention(user_id, first_name)
     admin_mention = mention(admin_id, admin_name)
     
-    msg_text = f"{user_mention} was unmuted by {admin_mention}"
+    msg_text = f"**میوتی لادرا: {user_mention}\nلەلایەن: {admin_mention}**"
     return msg_text
     
 
