@@ -6,7 +6,7 @@ from DAXXMUSIC.utils.daxx_ban import admin_filter
 
 BOT_ID = "6357186923"
 
-@app.on_message(filters.command(["unbanll","لادانی دەرکراوەکان"], prefixes=["/", "!", "%", ",", "", ".", "@", "#"])) & admin_filter)
+@app.on_message(filters.command(["unbanll","لادانی دەرکراوەکان"], prefixes=["/", "!", "%", ",", "", ".", "@", "#"]) & admin_filter)
 async def unban_all(_, msg):
     chat_id = msg.chat.id
     x = 0
