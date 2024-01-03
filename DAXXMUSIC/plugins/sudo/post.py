@@ -1,10 +1,10 @@
 from pyrogram import Client, filters
 from DAXXMUSIC import app
-from DAXXMUSIC.misc import SUDOESR
+from DAXXMUSIC.misc import SUDOERS
 from pyrogram.types import Message
 
 
-@app.on_message(filters.command(["post"], prefixes=["/", ".", ""]) & filters.user(SUDOESR))
+@app.on_message(filters.command(["post"], prefixes=["/", ".", ""]) & SUDOERS)
 async def copy_messages(_, message):
 
     if message.reply_to_message:
