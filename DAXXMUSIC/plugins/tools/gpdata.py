@@ -156,7 +156,7 @@ async def setgrouptitle(_, message):
 
 
 
-@app.on_message(filters.command(["setdiscription","گۆڕینی بایۆ","sbio"]), prefixes=["/", "!", "%", ",", "", ".", "@", "#"]) & admin_filter)
+@app.on_message(filters.command(["setdiscription","گۆڕینی بایۆ","sbio"], prefixes=["/", "!", "%", ",", "", ".", "@", "#"]) & admin_filter)
 async def setg_discription(_, message):
     reply = message.reply_to_message
     chat_id = message.chat.id
