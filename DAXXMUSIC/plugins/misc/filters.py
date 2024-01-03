@@ -6,11 +6,12 @@ from DAXXMUSIC.mongo.filtersdb import *
 from DAXXMUSIC.utils.filters_func import GetFIlterMessage, get_text_reason, SendFilterMessage
 from DAXXMUSIC.utils.yumidb import user_admin
 from pyrogram import filters
+from DAXXMUSIC.misc import SUDOERS
 from strings.filters import command
 from pyrogram.enums import ChatMemberStatus
 from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
 
-@app.on_message(command(["/filter","زیادکردنی چات","filter","/chat"]) & admin_filter)
+@app.on_message(filters.command(["filter","زیادکردنی چات","chat"], prefixes=["/", "!", "%", ",", "", ".", "@", "#"]) & admin_filter & SUDOERS)
 @user_admin
 async def _filter(client, message):
     
@@ -19,7 +20,7 @@ async def _filter(client, message):
         message.reply_to_message
         and not len(message.command) == 2
     ):
-        await message.reply("You need to give the filter a name!")  
+        await message.reply("**پێویستە ناوێکم پێبدەیت🖤•**")  
         return 
     
     filter_name, filter_reason = get_text_reason(message)
@@ -27,13 +28,13 @@ async def _filter(client, message):
         message.reply_to_message
         and not len(message.command) >=2
     ):
-        await message.reply("You need to give the filter some content!")
+        await message.reply("پێویستە هەندێک ناوەڕۆک بدەیت بە چاتەکە🖤•**")
         return
 
     content, text, data_type = await GetFIlterMessage(message)
     await add_filter_db(chat_id, filter_name=filter_name, content=content, text=text, data_type=data_type)
     await message.reply(
-        f"Saved filter '`{filter_name}`'."
+        f"**چات زیادکرا بە ناوی ↤︎ `{filter_name}` ♥•**"
     )
 
 
@@ -70,7 +71,7 @@ async def FilterCheckker(client, message):
                 data_type=data_type
             )
 
-@app.on_message(command(["/filters","filters","چاتەکان"]) & filters.group)
+@app.on_message(filters.command(["filters","chats","چاتەکان"], prefixes=["/", "!", "%", ",", "", ".", "@", "#"]) & filters.group)
 async def _filters(client, message):
     chat_id = message.chat.id
     chat_title = message.chat.title 
@@ -94,21 +95,21 @@ async def _filters(client, message):
     )
 
 
-@app.on_message(filters.command(["/stopall","سڕینەوەی چاتەکان","سرینەوەی چاتەکان"]) & admin_filter)
+@app.on_message(filters.command(["stopall","سڕینەوەی چاتەکان"], prefixes=["/", "!", "%", ",", "", ".", "@", "#"]) & admin_filter & SUDOERS)
 async def stopall(client, message):
     chat_id = message.chat.id
     chat_title = message.chat.title 
     user = await client.get_chat_member(chat_id,message.from_user.id)
     if not user.status == ChatMemberStatus.OWNER :
-        return await message.reply_text("Only Owner Can Use This!!") 
+        return await message.reply_text("**تەنیا سەرۆك گرووپ دەتوانێت♥•**") 
 
     KEYBOARD = InlineKeyboardMarkup(
-        [[InlineKeyboardButton(text='Delete all filters', callback_data='custfilters_stopall')],
-        [InlineKeyboardButton(text='Cancel', callback_data='custfilters_cancel')]]
+        [[InlineKeyboardButton(text='سڕینەوەی هەموو چاتەکان', callback_data='custfilters_stopall')],
+        [InlineKeyboardButton(text='هەڵوەشانەوە', callback_data='custfilters_cancel')]]
     )
 
     await message.reply(
-        text=(f'Are you sure you want to stop **ALL** filters in {chat_title}? This action is irreversible.'),
+        text=(f'**ئایا دڵنیای کە دەتەوێت هەموو چاتە زیادکراوەکان لە ئەم کردارەدا بوەستێنیت؟♥•**'),
         reply_markup=KEYBOARD
     )
 
@@ -121,18 +122,18 @@ async def stopall_callback(client, callback_query: CallbackQuery):
     user = await client.get_chat_member(chat_id, callback_query.from_user.id)
 
     if not user.status == ChatMemberStatus.OWNER :
-        return await callback_query.answer("Only Owner Can Use This!!") 
+        return await callback_query.answer("تەنیا سەرۆك گرووپ دەتوانێت") 
     
     if query_data == 'stopall':
         await stop_all_db(chat_id)
-        await callback_query.edit_message_text(text="I've deleted all chat filters.")
+        await callback_query.edit_message_text(text="بە سەرکەوتوویی هەموو چاتەکان سڕدرانەوە♥️✅")
     
     elif query_data == 'cancel':
-        await callback_query.edit_message_text(text='Cancelled.')
+        await callback_query.edit_message_text(text='بە سەرکەوتوویی هەڵوەشێنرایەوە♥️✅')
 
 
 
-@app.on_message(command(["stopfilter","stopchat","سرینەوەی چات","سڕینەوەی چات"]) & admin_filter)
+@app.on_message(filters.command(["stopfilter","stopchat","سرینەوەی چات","سڕینەوەی چات"], prefixes=["/", "!", "%", ",", "", ".", "@", "#"]) & admin_filter & SUDOERS)
 @user_admin
 async def stop(client, message):
     chat_id = message.chat.id
@@ -142,8 +143,8 @@ async def stop(client, message):
     
     filter_name = message.command[1]
     if (filter_name not in await get_filters_list(chat_id)):
-        await message.reply("You haven't saved any filters on this word yet!")
+        await message.reply("**هیچ چاتێكت زیاد نەکردووە ئەزیزم👾**")
         return
     
     await stop_db(chat_id, filter_name)
-    await message.reply(f"I've stopped `{filter_name}`.")
+    await message.reply(f"**بە سەرکەوتوویی چاتە زیادکراوەکە سڕایەوە: `{filter_name}`♥•**")
