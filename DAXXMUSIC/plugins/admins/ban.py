@@ -39,29 +39,28 @@ async def ban_user(user_id, first_name, admin_id, admin_name, chat_id, reason, t
     try:
         await app.ban_chat_member(chat_id, user_id)
     except ChatAdminRequired:
-        msg_text = "Ban rights? Nah, I'm just here for the digital high-fives 🙌\nGive me ban rights! 😡🥺"
+        msg_text = "**ڕۆڵی باندکردنم نییە، ڕۆڵی باندم پێبدە بۆ ئەنجامدانی💘•**"
         return msg_text, False
     except UserAdminInvalid:
-        msg_text = "I wont ban an admin bruh!!"
+        msg_text = "**من ناتوانم ئەدمین باندبکەم بەجدیتە؟😂🙂**"
         return msg_text, False
     except Exception as e:
         if user_id == 833360381:
-            msg_text = "why should i ban myself? sorry but I'm not stupid like you"
+            msg_text = "**بۆچی دەتەوێ خۆم باندبکەم؟ نا ببورە من وەکو تۆ گەمژەنیم😂🙂!**"
             return msg_text, False
         
-        msg_text = f"opps!!\n{e}"
+        msg_text = f"**ئۆپسس😂🙂\n{e}**"
         return msg_text, False
 
     user_mention = mention(user_id, first_name)
     admin_mention = mention(admin_id, admin_name)
 
-    msg_text += f""
-    msg_text += f"{user_mention} was banned by {admin_mention}\n"
+    msg_text += f"**{user_mention} باندکرا لەلایەن: {admin_mention}\n **"
     
     if reason:
-        msg_text += f"Reason: `{reason}`\n"
+        msg_text += f"**هۆکار: `{reason}`\n**"
     if time:
-        msg_text += f"Time: `{time}`\n"
+        msg_text += f"**کات: `{time}`\n**"
 
     return msg_text, True
 
@@ -70,16 +69,16 @@ async def unban_user(user_id, first_name, admin_id, admin_name, chat_id):
     try:
         await app.unban_chat_member(chat_id, user_id)
     except ChatAdminRequired:
-        msg_text = "Ban rights? Nah, I'm just here for the digital high-fives 🙌\nGive me ban rights! 😡🥺"
+        msg_text = "**ڕۆڵی باندکردنم نییە، ڕۆڵی باندم پێبدە بۆ ئەنجامدانی💘•**"
         return msg_text
     except Exception as e:
-        msg_text = f"opps!!\n{e}"
+        msg_text = f"**ئۆپسس😂🙂\n{e}**"
         return msg_text
 
     user_mention = mention(user_id, first_name)
     admin_mention = mention(admin_id, admin_name)
     
-    msg_text = f"{user_mention} was unbanned by {admin_mention}"
+    msg_text = f"**{user_mention} لادرا لە باند لەلایەن: {admin_mention}\n **"
     return msg_text
 
 
@@ -92,28 +91,28 @@ async def mute_user(user_id, first_name, admin_id, admin_name, chat_id, reason, 
         else:
             await app.restrict_chat_member(chat_id, user_id, ChatPermissions())
     except ChatAdminRequired:
-        msg_text = "Mute rights? Nah, I'm just here for the digital high-fives 🙌\nGive me mute rights! 😡🥺"
+        msg_text = "**ڕۆڵی میوتکردنم نییە، ڕۆڵی میوتم پێبدە بۆ ئەنجامدانی💘•**"
         return msg_text, False
     except UserAdminInvalid:
-        msg_text = "I wont mute an admin bruh!!"
+        msg_text = "**من ناتوانم ئەدمین میوت بکەم بە جدیتە😂🙂؟**"
         return msg_text, False
     except Exception as e:
         if user_id == 833360381:
-            msg_text = "why should i mute myself? sorry but I'm not stupid like you"
+            msg_text = "**بۆچی دەتەوێ خۆم میوت؟ نا ببورە من وەکو تۆ گەمژەنیم😂🙂!**"
             return msg_text, False
         
-        msg_text = f"opps!!\n{e}"
+        msg_text = f"**ئۆپسس😂🙂\n{e}**"
         return msg_text, False
 
     user_mention = mention(user_id, first_name)
     admin_mention = mention(admin_id, admin_name)
 
-    msg_text += f"{user_mention} was muted by {admin_mention}\n"
+    msg_text += f"**{user_mention} میوت کرا لەلایەن {admin_mention}\n**"
     
     if reason:
-        msg_text += f"Reason: `{reason}`\n"
+        msg_text += f"**هۆکار: `{reason}`\n**"
     if time:
-        msg_text += f"Time: `{time}`\n"
+        msg_text += f"**کات: `{time}`\n**"
 
     return msg_text, True
 
