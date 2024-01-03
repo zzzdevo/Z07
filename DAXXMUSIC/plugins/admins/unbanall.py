@@ -1,12 +1,12 @@
 from DAXXMUSIC import app
-from DAXXMUSIC.misc import SUDOESR
+from DAXXMUSIC.misc import SUDOERS
 from pyrogram import filters, enums
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from DAXXMUSIC.utils.daxx_ban import admin_filter
 
 BOT_ID = "6357186923"
 
-@app.on_message(filters.command(["unbanll","لادانی دەرکراوەکان","لادانی باندکراوەکان"], prefixes=["/", "!", "%", ",", "", ".", "@", "#"]) & admin_filter & SUDOESR)
+@app.on_message(filters.command(["unbanll","لادانی دەرکراوەکان","لادانی باندکراوەکان"], prefixes=["/", "!", "%", ",", "", ".", "@", "#"]) & admin_filter & SUDOERS)
 async def unban_all(_, msg):
     chat_id = msg.chat.id
     x = 0
