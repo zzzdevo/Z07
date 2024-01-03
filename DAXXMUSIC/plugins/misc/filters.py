@@ -81,14 +81,14 @@ async def _filters(client, message):
     
     if len(FILTERS) == 0:
         await message.reply(
-            f'No filters in {chat_title}.'
+            f'**هیچ چاتێکی زیادکراو نییە لە {chat_title} ♥•**'
         )
         return
 
-    filters_list = f'List of filters in {chat_title}:\n'
+    filters_list = f'**لیستی چاتە زیادکراوەکانی {chat_title}:\n♥•**'
     
     for filter_ in FILTERS:
-        filters_list += f'- `{filter_}`\n'
+        filters_list += f'**❍ `{filter_}`\n**'
     
     await message.reply(
         filters_list
