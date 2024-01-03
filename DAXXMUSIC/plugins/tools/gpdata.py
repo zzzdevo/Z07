@@ -188,7 +188,7 @@ async def setg_discription(_, message):
 
 # --------------------------------------------------------------------------------- #
 
-@app.on_message(command(["/lg","/leave","لێفتکە"])& filters.user(SUDOESR))
+@app.on_message(command(["/lg","/leave","لێفتکە"])& SUDOESR)
 async def bot_leave(_, message):
     chat_id = message.chat.id
     text = "**سەرکەوتووبوو سەرۆك!!.**"
