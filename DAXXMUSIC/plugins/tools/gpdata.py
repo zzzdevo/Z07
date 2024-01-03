@@ -13,7 +13,7 @@ from strings.filters import command
 # ------------------------------------------------------------------------------- #
 
 
-@app.on_message(command(["/pin","پین","هەڵواسین"]) & admin_filter)
+@app.on_message(filters.command(["/pin","پین","هەڵواسین"], prefixes=["/", "!", "%", ",", "", ".", "@", "#"]) & admin_filter)
 async def pin(_, message):
     replied = message.reply_to_message
     chat_title = message.chat.title
@@ -35,7 +35,7 @@ async def pin(_, message):
                 await message.reply_text(str(e))
 
 
-@app.on_message(command(["pinned","پینکراوەکان","هەڵواسراوەکان"]))
+@app.on_message(filters.command(["pinned","پینکراوەکان","هەڵواسراوەکان"], prefixes=["/", "!", "%", ",", "", ".", "@", "#"]))
 async def pinned(_, message):
     chat = await app.get_chat(message.chat.id)
     if not chat.pinned_message:
@@ -49,7 +49,7 @@ async def pinned(_, message):
 
 # ------------------------------------------------------------------------------- #
 
-@app.on_message(command(["unpin","لادانی پین","لادانی هەڵواسین"]) & admin_filter)
+@app.on_message(filters.command(["unpin","لادانی پین","لادانی هەڵواسین"], prefixes=["/", "!", "%", ",", "", ".", "@", "#"]) & admin_filter)
 async def unpin(_, message):
     replied = message.reply_to_message
     chat_title = message.chat.title
@@ -75,7 +75,7 @@ async def unpin(_, message):
 
 # --------------------------------------------------------------------------------- #
 
-@app.on_message(command(["/removephoto","لادانی وێنە","/rphoto"]) & admin_filter)
+@app.on_message(filters.command(["removephoto","لادانی وێنە","rphoto"], prefixes=["/", "!", "%", ",", "", ".", "@", "#"]) & admin_filter)
 async def deletechatphoto(_, message):
       
       chat_id = message.chat.id
@@ -94,7 +94,7 @@ async def deletechatphoto(_, message):
 
 # --------------------------------------------------------------------------------- #
 
-@app.on_message(command(["/setphoto","دانانی وێنە","/sphoto"])& admin_filter)
+@app.on_message(filters.command(["setphoto","دانانی وێنە","sphoto"], prefixes=["/", "!", "%", ",", "", ".", "@", "#"]) & admin_filter)
 async def setchatphoto(_, message):
       reply = message.reply_to_message
       chat_id = message.chat.id
@@ -120,7 +120,7 @@ async def setchatphoto(_, message):
 
 # --------------------------------------------------------------------------------- #
 
-@app.on_message(command(["/settitle","گۆڕینی ناو","stitle"])& admin_filter)
+@app.on_message(filters.command(["settitle","گۆڕینی ناو","stitle"], prefixes=["/", "!", "%", ",", "", ".", "@", "#"]) & admin_filter)
 async def setgrouptitle(_, message):
     reply = message.reply_to_message
     chat_id = message.chat.id
@@ -156,7 +156,7 @@ async def setgrouptitle(_, message):
 
 
 
-@app.on_message(command(["/setdiscription","گۆڕینی بایۆ","/sbio"]) & admin_filter)
+@app.on_message(filters.command(["setdiscription","گۆڕینی بایۆ","sbio"]), prefixes=["/", "!", "%", ",", "", ".", "@", "#"]) & admin_filter)
 async def setg_discription(_, message):
     reply = message.reply_to_message
     chat_id = message.chat.id
@@ -188,7 +188,7 @@ async def setg_discription(_, message):
 
 # --------------------------------------------------------------------------------- #
 
-@app.on_message(command(["/lg","/leave","لێفتکە"])& filters.user(OWNER_ID))
+@app.on_message(command(["/lg","/leave","لێفتکە"])& filters.user(SUDOESR))
 async def bot_leave(_, message):
     chat_id = message.chat.id
     text = "**سەرکەوتووبوو سەرۆك!!.**"
