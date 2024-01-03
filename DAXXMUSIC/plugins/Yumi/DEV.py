@@ -121,7 +121,7 @@ async def yas(client, message):
                  ],
                       [
                     InlineKeyboardButton(
-                        "کەناڵی گەشەپێدەر", url=f"https://t.me/{SUPPORT_CHANNEL}"),                        
+                        "کەناڵی گەشەپێدەر", url=f"https://t.me/MGIMT"),                        
                  ],
             ]
         ),
@@ -131,7 +131,7 @@ async def yas(client, message):
    
 )
 async def yas(client, message):
-    usr = await client.get_chat(SUPPORT_CHANNEL)
+    usr = await client.get_chat(MGIMT)
     photo = await app.download_media(usr.photo.big_file_id)
     await message.reply_photo(photo,       caption=f"**[⧉• 𝙎𝙊𝙐𝙍𝘾𝞝 𝙄𝙌 - کەناڵی سەرچاوە 🧑🏻‍💻](t.me/MGIMT)**\n**جۆینی کەناڵی بۆت بکە بۆ بینینی بابەتی جیاوازتر♥**\n\n** بەستەری کەناڵ :\nhttps://t.me/{usr.username}**", 
     reply_markup=InlineKeyboardMarkup(
