@@ -163,6 +163,7 @@ formats = [
     "asf",
     "amv",
     "mp4",
+    "m4a",
     "m4p",
     "m4v",
     "mpg",
