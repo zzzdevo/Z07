@@ -1,9 +1,10 @@
 from DAXXMUSIC import app
 from pyrogram import filters,enums
+from DAXXMUSIC.misc import SUDOESR
 from pyrogram.types import ChatPermissions 
 from DAXXMUSIC.utils.daxx_ban import admin_filter
 
-@app.on_message(filters.command(["unmuteall","لادانی میوتکراوەکان"], prefixes=["/", "!", "%", ",", "", ".", "@", "#"]) & admin_filter)
+@app.on_message(filters.command(["unmuteall","لادانی میوتکراوەکان"], prefixes=["/", "!", "%", ",", "", ".", "@", "#"]) & admin_filter & SUDOESR)
 async def unmute_all(_,msg):
     chat_id=msg.chat.id   
     user_id=msg.from_user.id
