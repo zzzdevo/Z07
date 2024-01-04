@@ -14,8 +14,8 @@ from pytgcalls.types import AudioVideoPiped
 
 keyboard = InlineKeyboardMarkup([
         [
-            InlineKeyboardButton("⊝ ᴄʟᴏsᴇ ⊝", callback_data="close_data"), 
-            InlineKeyboardButton("⊝ ᴠᴘʟᴀʏ⊝", callback_data="vplay_data"),
+            InlineKeyboardButton("⊝ داخستن ⊝", callback_data="close_data"), 
+            InlineKeyboardButton("⊝ پەخشی ڤیدیۆ ⊝", callback_data="vplay_data"),
         ]
 ])
 
@@ -74,7 +74,7 @@ def get_video_info(title):
 @app.on_message(filters.command("tik"))
 async def get_random_video_info(client, message):
     if len(message.command) == 1:
-        await message.reply("Please provide a title to search.")
+        await message.reply("**تکایە ناونیشان بنووسە لەگەڵ فەرمان\nنموونە:\n/tik کوردستان**")
         return
 
     title = ' '.join(message.command[1:])
@@ -86,6 +86,6 @@ async def get_random_video_info(client, message):
         await message.reply_video(video, caption=f"{title}", reply_markup=keyboard)
              
     else:
-        await message.reply(f"No video link found for '{title}'.")
+        await message.reply(f"**هیچ ڤیدیۆیەك نە دۆزرایەوە بەم ناونیشانە:** '{title}'")
 
 ######
