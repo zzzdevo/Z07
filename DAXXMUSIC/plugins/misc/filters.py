@@ -6,11 +6,10 @@ from DAXXMUSIC.mongo.filtersdb import *
 from DAXXMUSIC.utils.filters_func import GetFIlterMessage, get_text_reason, SendFilterMessage
 from DAXXMUSIC.utils.yumidb import user_admin
 from pyrogram import filters
-from DAXXMUSIC.misc import SUDOERS
 from pyrogram.enums import ChatMemberStatus
 from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
 
-@app.on_message(filters.command(["filter","chat"]) & admin_filter & SUDOERS)
+@app.on_message(filters.command(["filter","chat"]) & admin_filter)
 @user_admin
 async def _filter(client, message):
     
@@ -27,7 +26,7 @@ async def _filter(client, message):
         message.reply_to_message
         and not len(message.command) >=2
     ):
-        await message.reply("پێویستە هەندێک ناوەڕۆک بدەیت بە چاتەکە🖤•**")
+        await message.reply("**پێویستە هەندێک ناوەڕۆک بدەیت بە چاتەکە🖤•**")
         return
 
     content, text, data_type = await GetFIlterMessage(message)
@@ -84,7 +83,7 @@ async def _filters(client, message):
         )
         return
 
-    filters_list = f'**لیستی چاتە زیادکراوەکانی {chat_title}:\n♥•**'
+    filters_list = f'**لیستی چاتە زیادکراوەکانی {chat_title}:\n**'
     
     for filter_ in FILTERS:
         filters_list += f'**❍ `{filter_}`\n**'
@@ -94,7 +93,7 @@ async def _filters(client, message):
     )
 
 
-@app.on_message(filters.command(["stopall","rfilters","rchats"]) & admin_filter & SUDOERS)
+@app.on_message(filters.command(["stopall","rfilters","rchats"]) & admin_filter)
 async def stopall(client, message):
     chat_id = message.chat.id
     chat_title = message.chat.title 
@@ -125,19 +124,19 @@ async def stopall_callback(client, callback_query: CallbackQuery):
     
     if query_data == 'stopall':
         await stop_all_db(chat_id)
-        await callback_query.edit_message_text(text="بە سەرکەوتوویی هەموو چاتەکان سڕدرانەوە♥️✅")
+        await callback_query.edit_message_text(text="**بە سەرکەوتوویی هەموو چاتەکان سڕدرانەوە♥️✅**")
     
     elif query_data == 'cancel':
-        await callback_query.edit_message_text(text='بە سەرکەوتوویی هەڵوەشێنرایەوە♥️✅')
+        await callback_query.edit_message_text(text='**بە سەرکەوتوویی هەڵوەشێنرایەوە♥️✅**')
 
 
 
-@app.on_message(filters.command(["stopfilter","stopchat","rfilter","rchat"]) & admin_filter & SUDOERS)
+@app.on_message(filters.command(["stopfilter","stopchat","rfilter","rchat"]) & admin_filter)
 @user_admin
 async def stop(client, message):
     chat_id = message.chat.id
     if not (len(message.command) >= 2):
-        await message.reply('Use Help To Know The Command Usage')
+        await message.reply('**پرسیاربکە بۆ بەکارهێنانی ئەم فەرمانە**')
         return
     
     filter_name = message.command[1]
