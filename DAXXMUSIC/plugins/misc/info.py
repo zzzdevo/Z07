@@ -2,13 +2,13 @@ import asyncio, os, time, aiohttp
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 from asyncio import sleep
-from strings.filters import command
 from DAXXMUSIC import app as Hiroko
 from pyrogram import filters, Client, enums
 from pyrogram.enums import ParseMode
 from pyrogram.types import *
 from typing import Union, Optional
-from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
+
+
 
 # --------------------------------------------------------------------------------- #
 
@@ -20,15 +20,14 @@ resize_text = (
     else text.upper()
 )
 
-
 # --------------------------------------------------------------------------------- #
 
 
 async def get_userinfo_img(
-        bg_path: str,
-        font_path: str,
-        user_id: Union[int, str],
-        profile_path: Optional[str] = None
+    bg_path: str,
+    font_path: str,
+    user_id: Union[int, str],    
+    profile_path: Optional[str] = None
 ):
     bg = Image.open(bg_path)
 
@@ -52,10 +51,11 @@ async def get_userinfo_img(
         fill=(255, 255, 255),
     )
 
+
     path = f"./userinfo_img_{user_id}.png"
     bg.save(path)
     return path
-
+   
 
 # --------------------------------------------------------------------------------- #
 
@@ -77,26 +77,25 @@ INFO_TEXT = """**
 ✧ ¦ بـایـۆ ← {}
 **"""
 
-
 # --------------------------------------------------------------------------------- #
 
 async def userstatus(user_id):
-    try:
-        user = await Hiroko.get_users(user_id)
-        x = user.status
-        if x == enums.UserStatus.RECENTLY:
-            return "User was seen recently."
-        elif x == enums.UserStatus.LAST_WEEK:
-            return "User was seen last week."
-        elif x == enums.UserStatus.LONG_AGO:
-            return "User was seen long ago."
-        elif x == enums.UserStatus.OFFLINE:
-            return "User is offline."
-        elif x == enums.UserStatus.ONLINE:
-            return "User is online."
-    except:
+   try:
+      user = await Hiroko.get_users(user_id)
+      x = user.status
+      if x == enums.UserStatus.RECENTLY:
+         return "User was seen recently."
+      elif x == enums.UserStatus.LAST_WEEK:
+          return "User was seen last week."
+      elif x == enums.UserStatus.LONG_AGO:
+          return "User was seen long ago."
+      elif x == enums.UserStatus.OFFLINE:
+          return "User is offline."
+      elif x == enums.UserStatus.ONLINE:
+         return "User is online."
+   except:
         return "**sᴏᴍᴇᴛʜɪɴɢ ᴡʀᴏɴɢ ʜᴀᴘᴘᴇɴᴇᴅ !**"
-
+    
 
 # --------------------------------------------------------------------------------- #
 
@@ -104,7 +103,7 @@ async def userstatus(user_id):
 async def userinfo(_, message):
     chat_id = message.chat.id
     user_id = message.from_user.id
-
+    
     if not message.reply_to_message and len(message.command) == 2:
         try:
             user_id = message.text.split(None, 1)[1]
@@ -125,19 +124,10 @@ async def userinfo(_, message):
                 profile_path=photo,
             )
             await Hiroko.send_photo(chat_id, photo=welcome_photo, caption=INFO_TEXT.format(
-                id, name, username, mention, status, dc_id, bio), reply_to_message_id=message.id,
-                reply_markup=InlineKeyboardMarkup(
-                  [
-                        [
-                             InlineKeyboardButton(name, url=f"https://t.me/{message.from_user.username}")
-                        ],
-                    ]
-                ),
-             )
-
+                id, name, username, mention, status, dc_id, bio), reply_to_message_id=message.id)
         except Exception as e:
-            await message.reply_text(str(e))
-
+            await message.reply_text(str(e))        
+      
     elif not message.reply_to_message:
         try:
             user_info = await Hiroko.get_chat(user_id)
@@ -161,7 +151,7 @@ async def userinfo(_, message):
         except Exception as e:
             await message.reply_text(str(e))
 
-
+            
     elif message.reply_to_message:
         user_id = message.reply_to_message.from_user.id
         try:
@@ -182,15 +172,7 @@ async def userinfo(_, message):
                 profile_path=photo,
             )
             await Hiroko.send_photo(chat_id, photo=welcome_photo, caption=INFO_TEXT.format(
-                id, name, username, mention, status, dc_id, bio), reply_to_message_id=message.id,
-                reply_markup=InlineKeyboardMarkup(
-                  [
-                        [
-                             InlineKeyboardButton(name, url=f"https://t.me/{message.from_user.username}")
-                        ],
-                    ]
-                ),
-             )
+                id, name, username, mention, status, dc_id, bio), reply_to_message_id=message.id)
         except Exception as e:
             await message.reply_text(str(e))
 
