@@ -6,6 +6,7 @@ from DAXXMUSIC import app as Hiroko
 from pyrogram import filters, Client, enums
 from pyrogram.enums import ParseMode
 from pyrogram.types import *
+from strings.filters import command
 from typing import Union, Optional
 
 
