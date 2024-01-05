@@ -34,7 +34,7 @@ buttons = InlineKeyboardMarkup([[InlineKeyboardButton("๏ چالاککردن �
 
 @app.on_message(filters.command("nightmode") & filters.group)
 async def _nightmode(_, message):
-    return await message.reply_photo(photo="https://telegra.ph//file/06649d4d0bbf4285238ee.jpg", caption="**๏ کلیك بکە لە یەکێك لە دوگمەکان بۆ چالاککردن و ناچالاککردنی دۆخی شەو\nفەرمانەکە بۆ داخستن و کردنەوەی گرووپە بۆ خودکار🖤•**",reply_markup=buttons)
+    return await message.reply_photo(photo="https://telegra.ph//file/06649d4d0bbf4285238ee.jpg", caption="**✧¦کلیك بکە لە یەکێك لە دوگمەکان بۆ چالاککردن و ناچالاککردنی دۆخی شەو فەرمانەکە بۆ داخستن و کردنەوەی گرووپە بە خودکار🖤•**",reply_markup=buttons)
               
      
 @app.on_callback_query(filters.regex("^(add_night|rm_night)$"))
@@ -49,16 +49,16 @@ async def nightcb(_, query : CallbackQuery):
     if user_id in administrators:   
         if data == "add_night":
             if check_night:        
-                await query.message.edit_caption("**๏ دۆخی شەو پێشتر چالاککراوە!**")
+                await query.message.edit_caption("**✧¦دۆخی شەو پێشتر چالاککراوە!**")
             elif not check_night :
                 await nightmode_on(chat_id)
-                await query.message.edit_caption("**๏ دۆخی شەو لەم گرووپە زیادکرا بۆ داتا بیسم، گرووپ کاتژمێر 𝟏𝟐ی شەو دادەخرێت وە کاتژمێر 𝟖ی بەیانی دەکرێتەوە**") 
+                await query.message.edit_caption("**✧¦دۆخی شەو لەم گرووپە زیادکرا بۆ داتا بیسم، گرووپ کاتژمێر 𝟏𝟐ی شەو دادەخرێت وە کاتژمێر 𝟖ی بەیانی دەکرێتەوە**") 
         if data == "rm_night":
             if check_night:  
                 await nightmode_off(chat_id)      
-                await query.message.edit_caption("**๏ زانیاری دۆخی شەو سڕدرایەوە لە داتا بەیسم**")
+                await query.message.edit_caption("**✧¦زانیاری دۆخی شەو سڕدرایەوە لە داتا بەیسم**")
             elif not check_night:
-                await query.message.edit_caption("**๏ دۆخی شەو پێشتر ناچالاککراوە!**") 
+                await query.message.edit_caption("**✧¦دۆخی شەو پێشتر ناچالاککراوە!**") 
             
     
     
@@ -112,5 +112,5 @@ scheduler.start()
 
 @app.on_message(command("دۆخی شەو") & filters.group)
 async def _nightmode(_, message):
-    return await message.reply_photo(photo="https://telegra.ph//file/06649d4d0bbf4285238ee.jpg", caption="**๏ کلیك بکە لە یەکێك لە دوگمەکان بۆ چالاککردن و ناچالاککردنی دۆخی شەو\nفەرمانەکە بۆ داخستن و کردنەوەی گرووپە بۆ خودکار🖤•**",reply_markup=buttons)
+    return await message.reply_photo(photo="https://telegra.ph//file/06649d4d0bbf4285238ee.jpg", caption="**✧¦کلیك بکە لە یەکێك لە دوگمەکان بۆ چالاککردن و ناچالاککردنی دۆخی شەو فەرمانەکە بۆ داخستن و کردنەوەی گرووپە بۆ خودکار🖤•**",reply_markup=buttons)
 
