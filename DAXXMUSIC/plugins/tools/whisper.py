@@ -56,8 +56,8 @@ async def _whisper(_, inline_query):
                     reply_markup=whisper_btn
                 ),
                 InlineQueryResultArticle(
-                    title="🔩 One-Time Whisper",
-                    description=f"Send a one-time whisper to {user.first_name}!",
+                    title="🔩  چرپەیەکی یەکجارەکی",
+                    description=f"تۆ چرپەیەکی یەکجارەکی دەنێری بۆ {user.first_name}!",
                     input_message_content=InputTextMessageContent(f"**🔩 تۆ چرپەیەکی یەکجارەکی دەنێری بۆ {user.first_name}.\n\nتەنیا ئەو دەتوانێت بیکاتۆ**"),
                     thumb_url="https://te.legra.ph/file/3eec679156a393c6a1053.jpg",
                     reply_markup=one_time_whisper_btn
@@ -84,7 +84,7 @@ async def whispes_cb(_, query):
     
     if user_id not in [from_user, to_user, 833360381]:
         try:
-            await _.send_message(from_user, f"{query.from_user.mention} هەوڵدەدات چرپەی تۆ بکاتەوە")
+            await _.send_message(from_user, f"**{query.from_user.mention} هەوڵدەدات چرپەی تۆ بکاتەوە**")
         except Unauthorized:
             pass
         
