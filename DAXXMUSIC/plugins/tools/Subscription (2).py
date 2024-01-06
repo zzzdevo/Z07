@@ -14,16 +14,16 @@ async def subscription(_, __: Client, message: Message):
     
 subscribed = filters.create(subscription)
 
-@app.on_message(~subscribed)
+@app.on_message(filters.command("play") & subscribed, group=111)
 async def checker(_: Client, message: Message):
     if message.chat.type in [ChatType.GROUP, ChatType.SUPERGROUP]: await message.delete()
     user_id = message.from_user.id
     user = message.from_user.first_name
     markup = Markup([
-        [Button("- اشتراك -", url=f"https://t.me/{channel}")]
+        [Button("♥️ جۆینی کەناڵ بکە ♥️", url=f"https://t.me/{channel}")]
     ])
     await message.reply(
-        f"عذرًا عزيزي [{user}](tg://openmessage?user_id={user_id}) عليك الإشتراك بقناة البوت أولا.",
+        f"**🧑🏻‍💻︙ببوورە ئەزیزم تۆ جۆین نیت: [{user}](tg://openmessage?user_id={user_id})\n🔰︙سەرەتا پێویستە جۆینی کەناڵی بۆت ♥️؛\n👾︙بکەیت بۆ بەکارهێنانم جۆین بە ⚜️؛\n💎︙کەناڵی بۆت : @xv7amo\n\n👾︙کاتێ جۆینت کرد ستارت بکە /play , /vplay 📛!**",
         reply_markup = markup
     )
     
