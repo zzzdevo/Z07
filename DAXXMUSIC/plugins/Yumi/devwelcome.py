@@ -9,7 +9,7 @@ async def WelcomeDev(_, response: ChatMemberUpdated):
     dev_id = 833360381 
     if response.from_user.id == dev_id and response.new_chat_member.status == ChatMemberStatus.MEMBER:
         info = await app.get_chat(dev_id)
-        mention = user.mention
+        name = info.first_name
         username = info.username
         bio = info.bio
         markup = InlineKeyboardMarkup([
@@ -20,6 +20,6 @@ async def WelcomeDev(_, response: ChatMemberUpdated):
             chat_id=response.chat.id,
             reply_markup=markup,
             photo="downloads/developer.jpg", 
-            caption=f"**• خاوەنی بۆت {mention} جۆینی گرووپ بوو\n• بەخێربێی سەرۆك🧑🏻‍💻♥️\n• {bio}**"
+            caption=f"**• خاوەنی بۆت {name} جۆینی گرووپ بوو\n• بەخێربێی سەرۆك🧑🏻‍💻♥️\n• {bio}**"
         )
     
