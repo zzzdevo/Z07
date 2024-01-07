@@ -14,8 +14,8 @@ async def startmsg(app, message):
 
 ❓ چۆن چرپە بەکاربێنم :
 
-`@IQM2BOT سلاو @IQ7amo`
-`@IQM2BOT سلاو @all`
+`@IQMCBOT سلاو @IQ7amo`
+`@IQMCBOT سلاو @all`
 
 **'''.format(message.from_user.mention)
    key = InlineKeyboardMarkup (
@@ -65,8 +65,8 @@ async def whisper(app, query):
     text = '''**
 ❓ چۆن چرپە بەکاربێنم :
 
-`@IQM2BOT سلاو @IQ7amo`
-`@IQM2BOT سلاو @all`
+`@IQMCBOT سلاو @IQ7amo`
+`@IQMCBOT سلاو @all`
 
 **'''
     await query.answer(
@@ -74,7 +74,7 @@ async def whisper(app, query):
             InlineQueryResultPhoto(
                 title="🔒 چرپەنامە لەگەڵ + یوزەر",
                 photo_url='https://graph.org/file/7a3defa398f4ce6a0a055.jpg',
-                description='@IQM2BOT سەرۆکی بۆت @IQ7amo',
+                description='@IQMCBOT سەرۆکی بۆت @IQ7amo',
                 reply_markup=InlineKeyboardMarkup ([[InlineKeyboardButton ("🔗", url='t.me/MGIMT')]]),
                 input_message_content=InputTextMessageContent(text)
             ),
