@@ -5,12 +5,15 @@ import requests
 
 from ... import app
 from pyrogram import filters
+from pyrogram import Client, filters
 from pyrogram.types import Message
 from youtubesearchpython import VideosSearch
 
 
-@app.on_message(filters.command(["song","داگرتن","یوتوب"], ["/", "!", ".",""]))
-async def song(client: app, message: Message):
+# ------------------------------------------------------------------------------- #
+
+@app.on_message(filters.command(["song"], ["/", "!", "."]))
+async def song(client: Client, message):
     aux = await message.reply_text("**🔄 𝐏𝐫𝐨𝐜𝐞𝐬𝐬𝐢𝐧𝐠 ...**")
     if len(message.command) < 2:
         return await aux.edit(
@@ -18,35 +21,33 @@ async def song(client: app, message: Message):
         )
     try:
         song_name = message.text.split(None, 1)[1]
-        vid = VideosSearch(song_name, limit = 1)
-        song_title = vid.result()["result"][0]["title"]
-        song_link = vid.result()["result"][0]["link"]
+        vid = VideosSearch(song_name, limit=1)
+        song_results = vid.result()
+        if song_results:
+            song_title = song_results["result"][0]["title"]
+            song_link = song_results["result"][0]["link"]
+        else:
+            return await aux.edit("**No results found for the given song name.**")
         ydl_opts = {
-            "format": "mp3/bestaudio/best",
-            "verbose": True,
-            "geo-bypass": True,
-            "nocheckcertificate": True,
-            "postprocessors": [
-                {
-                    "key": "FFmpegExtractAudio",
-                    "preferredcodec": "mp3"
-                }
-            ],
-            "outtmpl": f"downloads/{song_title}",
+            "format": "bestaudio/best",
+            "outtmpl": f"downloads/{song_title}.mp3",
+            "postprocessors": [{"key": "FFmpegExtractAudio", "preferredcodec": "mp3"}],
         }
         await aux.edit("**𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐢𝐧𝐠 ...**")
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            ydl.download(song_link)
+            ydl.download([song_link])  # Pass song_link as a list
         await aux.edit("**𝐔𝐩𝐥𝐨𝐚𝐝𝐢𝐧𝐠 ...**")
-        await message.reply_audio(f"downloads/{song_title}.mp3")
-        try:
-            os.remove(f"downloads/{song_title}.mp3")
-        except:
-            pass
+        audio_path = f"downloads/{song_title}.mp3"
+        if os.path.exists(audio_path):
+            await message.reply_audio(audio_path)
+            os.remove(audio_path)
+        else:
+            await aux.edit("**Failed to download the audio.**")
         await aux.delete()
     except Exception as e:
         await aux.edit(f"**𝐄𝐫𝐫𝐨𝐫:** {e}")
 
+# ------------------------------------------------------------------------------- #
 
 ###### INSTAGRAM REELS DOWNLOAD
 
