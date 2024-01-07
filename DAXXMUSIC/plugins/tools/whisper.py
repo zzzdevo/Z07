@@ -7,7 +7,7 @@ from DAXXMUSIC import app as app
 LOG = -1001834002030 #
 ######################
 
-@app.on_message(filters.command("wstart") & filters.private)
+@app.on_message(filters.command("wstart"))
 async def startmsg(app, message):
    text = '''**
 👋 سڵاو {}
