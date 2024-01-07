@@ -1,7 +1,7 @@
 from pyrogram import Client, filters, idle
 from pyrogram.types import InlineQueryResultPhoto, InlineKeyboardMarkup, InlineKeyboardButton, InlineQueryResultArticle, InputTextMessageContent
 from pyrogram import enums
-
+from DAXXMUSIC import app as app
 
 ######################
 LOG = -1001834002030 #
@@ -107,7 +107,7 @@ async def get_whisper(app,query):
        except:
          pass
        try:
-         alert0 = f"📭 {query.from_user.mention} opened the @all whisper ."
+         alert0 = f"📭 {query.from_user.mention} کرایەوە @all چرپەنامە"
          await app.send_message(from_user, alert0)
        except:
          pass
@@ -133,13 +133,13 @@ async def get_whisper(app,query):
       else:
         get = await app.get_chat(int(user))
         touser = get.first_name
-        alert = f"ℹ️ Someone trying to open your whisper with {touser}:\n\n"
-        alert += f"👤 Firstname : {query.from_user.mention}\n"
-        alert += f"🆔 ID : {query.from_user.id}\n"
+        alert = f"**کەسێك هەوڵیدا چرپەی تۆ بکاتەوە {touser}:\n\n**"
+        alert += f"👤 ناو : {query.from_user.mention}\n"
+        alert += f"🆔 ئایدی : {query.from_user.id}\n"
         if query.from_user.username:
-          alert += f"🔍 Username : @{query.from_user.username}\n"
+          alert += f"🔍 یوزەر : @{query.from_user.username}\n"
         alert += "\n\n📭"
-        await query.answer("🔒 This whisper it's not for you .", show_alert=True)
+        await query.answer("🔒 ئەم چرپەیە بۆتۆ نییە بەڕێزم", show_alert=True)
         try:
           await app.send_message(
             from_user,
@@ -153,15 +153,15 @@ async def get_whisper(app,query):
 async def del_whisper(app,query):
    user = int(query.data.split("DELETE")[1])
    if not query.from_user.id == user:
-     return await query.answer("❓ Only the sender can use this button .")
+     return await query.answer("❓ تەنیا ئەو کەسە دەتوانێت کە ناردوویەتی")
    
    else:
      reply_markup = InlineKeyboardMarkup(
       [[
-        InlineKeyboardButton("Dev. 🔗", url="https://t.me/DevZaid")
+        InlineKeyboardButton("خاوەنی بۆت", url="https://t.me/IQ7amo")
       ]]
     )
-     await query.edit_message_text(f"**🗑️ This whisper was deleted by ( {query.from_user.mention} ) .**",
+     await query.edit_message_text(f"**🗑️ چرپەنامە سڕدرایەوە لە لایەن: ( {query.from_user.mention} )**",
        reply_markup=reply_markup
      )
      
