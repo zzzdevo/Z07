@@ -1,34 +1,11 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
+from DAXXMUSIC import app
 from pyrogram.types import InlineKeyboardMarkup as Keyboard, InlineKeyboardButton as Button
 import pyrogram.errors, requests, re
 
 
-app = Client(
-    "URLsChecker",
-    api_id = 1384,
-    api_hash = "99172839e8a8d95052",
-    bot_token = "6553005927:AAH2CTrI"
-)
 
-
-@app.on_message(filters.command("start"))
-async def start(_, message: Message):
-    user_id = message.from_user.id
-    subscribe = await subscription(user_id)
-    if subscribe: return await message.reply_text(
-        f"- Sorry You Need To Subscribe To Our Channel First.\n- channel: {subscribe['channel']}\n- Subscribe Then send: /start",
-        reply_to_message_id = message.id)
-    name = (await app.get_chat(5451878368)).first_name
-    caption = "- Welcome To URLs Checker Bot.\n- Send Me A Link To Chek It."
-    markup = Keyboard([
-        [Button(name, url="BENN_DEV.t.me")]
-    ])
-    await message.reply_text(
-        caption,
-        reply_markup=markup,
-        reply_to_message_id=message.id
-    )
         
 
 @app.on_message(filters.regex(r"(http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+)"))
@@ -48,8 +25,8 @@ async def checker(message: Message, url):
     if scan_id:
         scan_result = get_scan_result(scan_id)
         positives = scan_result.get("positives")
-        if positives == 0: return await message.reply_text("- Safe Url ✅️", reply_to_message_id=message.id)
-        caption = "- Unsafe URL ⚠️\n- Reasons: \n"
+        if positives == 0: return await message.reply_text("**• لینک پارێزراوە پاکە ✅️**", reply_to_message_id=message.id)
+        caption = "**• لینک پارێزراو نییە ⚠️\n• هۆکار: \n**"
         try:
             for scan in scan_result.get("scans").values():
                 if scan.get("detected"): caption += f"- {scan.get('name')}\n"
@@ -59,7 +36,7 @@ async def checker(message: Message, url):
             reply_to_message_id=message.id
         )
     await message.reply_text(
-        "- There is NO Response.\n- Try Again, Please.",
+        "**• هیچ وەڵامدانەوەیە نەبوو\n• تکایە دووبارەی بکەوە♻️🖤**",
         reply_to_message_id=message.id
     )
 
@@ -87,16 +64,3 @@ def get_scan_result(resource):
     return json_response
 
 
-async def subscription(user_id):
-    channel = "@BENfiles"
-    try: await app.get_chat_member(chat_id=channel, user_id=user_id)
-    except pyrogram.errors.exceptions.bad_request_400.UserNotParticipant: return {"channel" : channel}
-    return False
-
-
-def main():
-    print("Alive")
-    app.run()
-    
-
-if __name__ == "__main__": main()
