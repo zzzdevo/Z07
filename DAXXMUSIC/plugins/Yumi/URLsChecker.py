@@ -5,28 +5,30 @@ from pyrogram.types import InlineKeyboardMarkup as Keyboard, InlineKeyboardButto
 import pyrogram.errors, requests, re
 
 
-markup2 = markup = Keyboard([
-        [Button("”﮼احساس“ !", url="https://t.me/xv7amo")]
-    ])
+
 
 @app.on_message(filters.command(["chk","پشکنین","پشکنين"], prefixes=["/", "", "#"]))
-async def start(_, message: Message):
-    user_id = message.from_user.id
-    subscribe = await subscription(user_id)
-    if subscribe: return await message.reply_text(
-        f"**🧑🏻‍💻︙ببوورە ئەزیزم تۆ جۆین نیت؛\n🔰︙سەرەتا پێویستە جۆینی کەناڵی بۆت ♥️؛\n👾︙بکەیت بۆ بەکارهێنانم جۆین بە ⚜️؛\n💎︙کەناڵی بۆت: {subscribe['channel']}\n\n👾︙کاتێ جۆینت کرد پشکنین بکە /chk , پشکنین 📛!**",
-        reply_markup=markup2,
-        reply_to_message_id = message.id)
-    name = (await app.get_chat(6357186923)).first_name
-    caption = "**👾︙بەخێربێی بۆ فەرمانی پشکنین بۆ لینکی ساختە\n👾︙لینک لە تایبەتی بۆت بنێرە**"
-    markup = Keyboard([
-        [Button(name, url="https://t.me/IQMCBOT")]
-    ])
-    await message.reply_text(
-        caption,
-        reply_markup=markup,
-        reply_to_message_id=message.id
+async def huhh(client: Client, message: Message):
+    await message.reply_photo(
+        photo=f"https://telegra.ph/file/024f02f6681c3785ec085.jpg",
+        caption=f"""**[⧉• 𝙎𝙊𝙐𝙍𝘾𝞝 𝙄𝙌 - فەرمانی پشکنین🧑🏻‍💻🖤](t.me/MGIMT)**\n\n**بەخێربێی ئەزیزم {message.from_user.mention} بۆ بەشی پشکنینی لینك تایبەت بە سەرچاوەی زیرەك**\n** بۆ بەکارهێنانی: بڕۆ چاتی بۆت @IQMCBOT و لینك دابنێ بۆتی دەپشکنێ پێت دەڵێت پارێزراوە یان نا♥⚡**""",
+        reply_markup=InlineKeyboardMarkup(
+            [
+                [
+                                        InlineKeyboardButton(
+                        "𝙄𝙌 𝙈𝙐𝙎𝙄𝘾 ♥️•", url=f"https://t.me/IQMCBOT"), 
+                 ],[
+                
+                    InlineKeyboardButton(
+                        "⧉• 𝙎𝙊𝙐𝙍𝘾𝞝 𝙄𝙌", url=f"https://t.me/MGIMT"),
+                ],
+
+            ]
+
+        ),
+
     )
+
         
 
 @app.on_message(filters.regex(r"(http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+)") & filters.private)
@@ -41,7 +43,7 @@ async def responseer(_, message: Message):
 
 async def checker(message: Message, url):
     try: scan_response = scan_url(url)
-    except: return await message.reply_text("- Invalid URL", reply_to_message_id=message.id)
+    except: return await message.reply_text("**• لینکی هەڵە**", reply_to_message_id=message.id)
     scan_id = scan_response.get("scan_id")
     if scan_id:
         scan_result = get_scan_result(scan_id)
@@ -50,7 +52,7 @@ async def checker(message: Message, url):
         caption = "**• لینک پارێزراو نییە ⚠️\n• هۆکار: \n**"
         try:
             for scan in scan_result.get("scans").values():
-                if scan.get("detected"): caption += f"- {scan.get('name')}\n"
+                if scan.get("detected"): caption += f"• {scan.get('name')}\n"
         except: ...
         return await message.reply_text(
             caption,
