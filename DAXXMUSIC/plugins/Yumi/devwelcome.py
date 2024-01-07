@@ -1,3 +1,4 @@
+import os
 from pyrogram import Client
 from pyrogram.types import ChatMemberUpdated, InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram.enums import ChatMemberStatus
