@@ -49,7 +49,7 @@ async def ban_user(user_id, first_name, admin_id, admin_name, chat_id, reason, t
             msg_text = "**بۆچی دەتەوێ خۆم دەربکەم؟ نا ببورە من وەکو تۆ گەمژەنیم😂🙂!**"
             return msg_text, False
         
-        msg_text = f"**ئۆپسس😂🙂\n{e}**"
+        msg_text = f"**ئۆپسس😂🙂**"
         return msg_text, False
 
     user_mention = mention(user_id, first_name)
@@ -72,7 +72,7 @@ async def unban_user(user_id, first_name, admin_id, admin_name, chat_id):
         msg_text = "**ڕۆڵی لادانی دەرکردنم نییە، ڕۆڵی باندم پێبدە بۆ ئەنجامدانی💘•**"
         return msg_text
     except Exception as e:
-        msg_text = f"**ئۆپسس😂🙂\n{e}**"
+        msg_text = f"**ئۆپسس😂🙂**"
         return msg_text
 
     user_mention = mention(user_id, first_name)
@@ -101,7 +101,7 @@ async def mute_user(user_id, first_name, admin_id, admin_name, chat_id, reason, 
             msg_text = "**بۆچی دەتەوێ خۆم میوت؟ نا ببورە من وەکو تۆ گەمژەنیم😂🙂!**"
             return msg_text, False
         
-        msg_text = f"**ئۆپسس😂🙂\n{e}**"
+        msg_text = f"**ئۆپسس😂🙂**"
         return msg_text, False
 
     user_mention = mention(user_id, first_name)
@@ -135,7 +135,7 @@ async def unmute_user(user_id, first_name, admin_id, admin_name, chat_id):
         msg_text = "**ڕۆڵی لادانی میوتکردنم نییە، ڕۆڵی میوتم پێبدە بۆ ئەنجامدانی💘•**"
         return msg_text
     except Exception as e:
-        msg_text = f"**ئۆپسس😂🙂\n{e}**"
+        msg_text = f"**ئۆپسس😂🙂**"
         return msg_text
 
     user_mention = mention(user_id, first_name)
@@ -146,7 +146,7 @@ async def unmute_user(user_id, first_name, admin_id, admin_name, chat_id):
     
 
 
-@app.on_message(filters.command(["ban","دەرکردن","باند"], prefixes=["/", "!", "%", ",", "", ".", "@", "#"]))
+@app.on_message(filters.command(["ban"], prefixes=["/", "!", "%", ",", ".", "@", "#"]))
 async def ban_command_handler(client, message):
     chat = message.chat
     chat_id = chat.id
@@ -200,7 +200,7 @@ async def ban_command_handler(client, message):
         await message.reply_text(msg_text)
 
 
-@app.on_message(filters.command(["unban","لادانی دەرکردن","لادانی باند"], prefixes=["/", "!", "%", ",", "", ".", "@", "#"]))
+@app.on_message(filters.command(["unban"], prefixes=["/", "!", "%", ",", ".", "@", "#"]))
 async def unban_command_handler(client, message):
     chat = message.chat
     chat_id = chat.id
@@ -242,7 +242,7 @@ async def unban_command_handler(client, message):
 
 
 
-@app.on_message(filters.command(["mute","ئاگاداری","میوت"], prefixes=["/", "!", "%", ",", "", ".", "@", "#"]))
+@app.on_message(filters.command(["mute"], prefixes=["/", "!", "%", ",", ".", "@", "#"]))
 async def mute_command_handler(client, message):
     chat = message.chat
     chat_id = chat.id
@@ -297,7 +297,7 @@ async def mute_command_handler(client, message):
         await message.reply_text(msg_text)
 
 
-@app.on_message(filters.command(["لادانی میوت","لادانی ئاگاداری","unmute"], prefixes=["/", "!", "%", ",", "", ".", "@", "#"]))
+@app.on_message(filters.command(["unmute"], prefixes=["/", "!", "%", ",", ".", "@", "#"]))
 async def unmute_command_handler(client, message):
     chat = message.chat
     chat_id = chat.id
