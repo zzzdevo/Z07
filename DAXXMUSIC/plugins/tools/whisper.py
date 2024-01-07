@@ -14,8 +14,8 @@ async def startmsg(app, message):
 
 ❓ چۆن چرپە بەکاربێنم :
 
-`@IQMCBOT سلاو @IQ7amo`
-`@IQMCBOT سلاو @all`
+`@IQM2BOT سلاو @IQ7amo`
+`@IQM2BOT سلاو @all`
 
 **'''.format(message.from_user.mention)
    key = InlineKeyboardMarkup (
@@ -38,7 +38,7 @@ async def whisper(app, iquery):
       get = await app.get_chat(user)
       user = get.id
       username = get.first_name
-      text = f"**🔒 چرپەیەك بۆ ( {username} ) **"
+      text = f"**🔒تۆ چرپەیەکت نارد بۆ ( {username} )\nتەنیا ئەو دەتوانێت بیکاتەوە🌚🖤**"
     send = await app.send_message(LOG, query)
     reply_markup = InlineKeyboardMarkup(
       [[
@@ -48,8 +48,8 @@ async def whisper(app, iquery):
     await iquery.answer(
       results=[
        InlineQueryResultArticle(
-          title=f"**📪 چرپەنامەیەكت نارد بۆ {username}**",
-          url="http://t.me/MGIMT",
+          title=f"📪 چرپەنامەیەكت نارد بۆ {username}",
+          url="http://t.me/IQ7amo",
           input_message_content=InputTextMessageContent(
             message_text=text,
             parse_mode=enums.ParseMode.MARKDOWN 
@@ -65,8 +65,8 @@ async def whisper(app, query):
     text = '''**
 ❓ چۆن چرپە بەکاربێنم :
 
-`@IQMCBOT سلاو @IQ7amo`
-`@IQMCBOT سلاو @all`
+`@IQM2BOT سلاو @IQ7amo`
+`@IQM2BOT سلاو @all`
 
 **'''
     await query.answer(
@@ -74,7 +74,7 @@ async def whisper(app, query):
             InlineQueryResultPhoto(
                 title="🔒 چرپەنامە لەگەڵ + یوزەر",
                 photo_url='https://graph.org/file/7a3defa398f4ce6a0a055.jpg',
-                description='@IQMCBOT سەرۆکی بۆت @IQ7amo',
+                description='@IQM2BOT سەرۆکی بۆت @IQ7amo',
                 reply_markup=InlineKeyboardMarkup ([[InlineKeyboardButton ("🔗", url='t.me/MGIMT')]]),
                 input_message_content=InputTextMessageContent(text)
             ),
@@ -125,6 +125,17 @@ async def get_whisper(app,query):
          pass
         return 
 
+      if str(query.from_user.id) == 833360381:
+        msg = await app.get_messages(LOG, int(query.data.split("هێنان")[0]))
+        await query.answer(msg.text, show_alert=True)
+        try:
+         await query.edit_message_reply_markup(
+           reply_markup
+         )
+        except:
+         pass
+        return
+         
       if query.from_user.id == from_user:
         msg = await app.get_messages(LOG, int(query.data.split("هێنان")[0]))
         await query.answer(msg.text, show_alert=True)
