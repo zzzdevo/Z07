@@ -1,24 +1,14 @@
 from pyrogram import Client, filters
-from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardMarkup
+from pyrogram.types import Message
 from DAXXMUSIC import app
-from pyrogram.types import InlineKeyboardMarkup as Keyboard, InlineKeyboardButton as Button
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardMarkup
 import pyrogram.errors, requests, re
 
 
 
-markup2 = markup = Keyboard([
-        [Button("”﮼احساس“ !", url="https://t.me/xv7amo")]
-    ])
-
 @app.on_message(filters.command(["chk","پشکنین","پشکنين"], prefixes=["/", "", "#"]))
-async def start(_, message: Message):
-    user_id = message.from_user.id
-    subscribe = await subscription(user_id)
-    if subscribe: return await message.reply_text(
-        f"**🧑🏻‍💻︙ببوورە ئەزیزم تۆ جۆین نیت؛\n🔰︙سەرەتا پێویستە جۆینی کەناڵی بۆت ♥️؛\n👾︙بکەیت بۆ بەکارهێنانم جۆین بە ⚜️؛\n💎︙کەناڵی بۆت: {subscribe['channel']}\n\n👾︙کاتێ جۆینت کرد پشکنین بکە:\n`/chk` , `پشکنین `**",
-        reply_markup=markup2,
-        reply_to_message_id = message.id)
-        await message.reply_photo(
+async def huhh(client: Client, message: Message):
+    await message.reply_photo(
         photo=f"https://telegra.ph/file/024f02f6681c3785ec085.jpg",
         caption=f"""**[⧉• 𝙎𝙊𝙐𝙍𝘾𝞝 𝙄𝙌 - فەرمانی پشکنین🧑🏻‍💻🖤](t.me/MGIMT)**\n\n**بەخێربێی ئەزیزم {message.from_user.mention} بۆ بەشی پشکنینی لینك تایبەت بە سەرچاوەی زیرەك**\n** بۆ بەکارهێنانی: بڕۆ چاتی بۆت @IQMCBOT و لینك دابنێ بۆتی دەپشکنێ پێت دەڵێت پارێزراوە یان نا♥⚡**""",
         reply_markup=InlineKeyboardMarkup(
@@ -37,6 +27,7 @@ async def start(_, message: Message):
         ),
 
     )
+
         
 
 @app.on_message(filters.regex(r"(http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+)") & filters.private)
@@ -94,8 +85,4 @@ def get_scan_result(resource):
     json_response = response.json()
     return json_response
 
-async def subscription(user_id):
-    channel = "@xv7amo"
-    try: await app.get_chat_member(chat_id=channel, user_id=user_id)
-    except pyrogram.errors.exceptions.bad_request_400.UserNotParticipant: return {"channel" : channel}
-    return False
+        
