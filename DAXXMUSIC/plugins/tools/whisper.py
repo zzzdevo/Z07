@@ -1,132 +1,168 @@
-from DAXXMUSIC import app as app
-from config import BOT_USERNAME
-from pyrogram import filters
-from pyrogram.types import (
-    InlineQueryResultArticle, InputTextMessageContent,
-    InlineKeyboardMarkup, InlineKeyboardButton
-)
+from pyrogram import Client, filters, idle
+from pyrogram.types import InlineQueryResultPhoto, InlineKeyboardMarkup, InlineKeyboardButton, InlineQueryResultArticle, InputTextMessageContent
+from pyrogram import enums
 
-whisper_db = {}
 
-switch_btn = InlineKeyboardMarkup([[InlineKeyboardButton("⚡ دەستپێکردنی چرپەنامە ⚡", switch_inline_query_current_chat="")]])
+######################
+LOG = -1001834002030 #
+######################
 
-async def _whisper(_, inline_query):
-    data = inline_query.query
-    results = []
-    
-    if len(data.split()) < 2:
-        mm = [
-            InlineQueryResultArticle(
-                title="⚡ چرپەنامە ⚡",
-                description=f"@{BOT_USERNAME} [ یوزەر | ئایدی ] [ نووسین ]",
-                input_message_content=InputTextMessageContent(f"**💒 بەکارهێنان**:\n\n@{BOT_USERNAME} [ یوزەر | ئایدی ] [ نووسین ]"),
-                thumb_url="https://te.legra.ph/file/3eec679156a393c6a1053.jpg",
-                reply_markup=switch_btn
-            )
-        ]
+@app.on_message(filters.command("wstart") & filters.private)
+async def startmsg(app, message):
+   text = '''**
+👋 سڵاو {}
+
+❓ چۆن چرپە بەکاربێنم :
+
+`@IQMCBOT سلاو @IQ7amo`
+`@IQMCBOT سلاو @all`
+
+**'''.format(message.from_user.mention)
+   key = InlineKeyboardMarkup (
+     [[
+       InlineKeyboardButton ("تاقیکردنەوە", switch_inline_query='سلاو @IQ7amo') ]]
+   )
+   await message.reply(text, reply_markup=key, quote=True)
+
+
+@app.on_inline_query(filters.regex("@"))
+async def whisper(app, iquery):
+    user = iquery.query.split("@")[1]
+    if " " in user: return 
+    user_id = iquery.from_user.id
+    query = iquery.query.split("@")[0]
+    if user == "all":
+      text = "**🎊 ئەم چرپەیە بۆ هەمووانە**"
+      username = "all"
     else:
-        try:
-            user_id = data.split()[0]
-            msg = data.split(None, 1)[1]
-        except IndexError as e:
-            pass
-        
-        try:
-            user = await _.get_users(user_id)
-        except:
-            mm = [
-                InlineQueryResultArticle(
-                    title="⚡ چرپەنامە ⚡",
-                    description="**یوزەر یان ئایدی هەڵەیە!**",
-                    input_message_content=InputTextMessageContent("**یوزەر یان ئایدی هەڵەیە!**"),
-                    thumb_url="https://te.legra.ph/file/3eec679156a393c6a1053.jpg",
-                    reply_markup=switch_btn
-                )
-            ]
-        
-        try:
-            whisper_btn = InlineKeyboardMarkup([[InlineKeyboardButton("⚡ چرپەنامە ⚡", callback_data=f"fdaywhisper_{inline_query.from_user.id}_{user.id}")]])
-            one_time_whisper_btn = InlineKeyboardMarkup([[InlineKeyboardButton("🔩 چرپەنامەی یەکجاری", callback_data=f"fdaywhisper_{inline_query.from_user.id}_{user.id}_one")]])
-            mm = [
-                InlineQueryResultArticle(
-                    title="⚡ چرپەنامە ⚡",
-                    description=f"چرپەنامەیەكت نارد بۆ {user.first_name}!",
-                    input_message_content=InputTextMessageContent(f"**⚡ تۆ چرپەیەکت نارد بۆ {user.first_name}.\n\nتەنیا ئەو دەتوانێت بیکاتۆ**"),
-                    thumb_url="https://te.legra.ph/file/3eec679156a393c6a1053.jpg",
-                    reply_markup=whisper_btn
-                ),
-                InlineQueryResultArticle(
-                    title="🔩  چرپەیەکی یەکجارەکی",
-                    description=f"تۆ چرپەیەکی یەکجارەکی دەنێری بۆ {user.first_name}!",
-                    input_message_content=InputTextMessageContent(f"**🔩 تۆ چرپەیەکی یەکجارەکی دەنێری بۆ {user.first_name}.\n\nتەنیا ئەو دەتوانێت بیکاتۆ**"),
-                    thumb_url="https://te.legra.ph/file/3eec679156a393c6a1053.jpg",
-                    reply_markup=one_time_whisper_btn
-                )
-            ]
-        except:
-            pass
-        
-        try:
-            whisper_db[f"{inline_query.from_user.id}_{user.id}"] = msg
-        except:
-            pass
-    
-    results.append(mm)
-    return results
-
-
-@app.on_callback_query(filters.regex(pattern=r"fdaywhisper_(.*)"))
-async def whispes_cb(_, query):
-    data = query.data.split("_")
-    from_user = int(data[1])
-    to_user = int(data[2])
-    user_id = query.from_user.id
-    
-    if user_id not in [from_user, to_user, 833360381]:
-        try:
-            await _.send_message(from_user, f"**{query.from_user.mention} هەوڵدەدات چرپەی تۆ بکاتەوە**")
-        except Unauthorized:
-            pass
-        
-        return await query.answer("ئەم چرپەیە بۆتۆ نییە 🚧", show_alert=True)
-    
-    search_msg = f"{from_user}_{to_user}"
-    
-    try:
-        msg = whisper_db[search_msg]
-    except:
-        msg = "**🚫 هەڵە !\n\nچرپەنامە سڕدرایەوە لە داتابەیس**"
-    
-    SWITCH = InlineKeyboardMarkup([[InlineKeyboardButton("بڕۆ بۆ دووگمە 🪝", switch_inline_query_current_chat="")]])
-    
-    await query.answer(msg, show_alert=True)
-    
-    if len(data) > 3 and data[3] == "one":
-        if user_id == to_user:
-            await query.edit_message_text("**📬 چرپە خوێندرایەوە!\n\nبۆ ناردنی چرپە دوگمەی خوارەوە داگرە!**", reply_markup=SWITCH)
-
-
-async def in_help():
-    answers = [
-        InlineQueryResultArticle(
-            title="⚡ چرپەنامە ⚡",
-            description=f"@IQMCBOT [یوزەر | ئایدی] [ نووسین ]",
-            input_message_content=InputTextMessageContent(f"**📍بەکارهێنان:**\n\n@IQMCBOT (یوزەر یان ئایدی کەسەکە) (نامەکەت).\n\n**نموونە:**\n@IQMCBOT @IQ7amo سەرۆک"),
-            thumb_url="https://te.legra.ph/file/3eec679156a393c6a1053.jpg",
-            reply_markup=switch_btn
-        )
-    ]
-    return answers
-
+      get = await app.get_chat(user)
+      user = get.id
+      username = get.first_name
+      text = f"**🔒 چرپەیەك بۆ ( {username} ) **"
+    send = await app.send_message(LOG, query)
+    reply_markup = InlineKeyboardMarkup(
+      [[
+        InlineKeyboardButton("📪 پیشاندانی نامە", callback_data=f"{send.id}هێنان{user}from{user_id}")
+      ]]
+    )
+    await iquery.answer(
+      results=[
+       InlineQueryResultArticle(
+          title=f"**📪 چرپەنامەیەكت نارد بۆ {username}**",
+          url="http://t.me/MGIMT",
+          input_message_content=InputTextMessageContent(
+            message_text=text,
+            parse_mode=enums.ParseMode.MARKDOWN 
+          ),
+          reply_markup=reply_markup
+       )
+      ],
+      cache_time=1
+    )
 
 @app.on_inline_query()
-async def bot_inline(_, inline_query):
-    string = inline_query.query.lower()
+async def whisper(app, query):
+    text = '''**
+❓ چۆن چرپە بەکاربێنم :
+
+`@IQMCBOT سلاو @IQ7amo`
+`@IQMCBOT سلاو @all`
+
+**'''
+    await query.answer(
+        results=[
+            InlineQueryResultPhoto(
+                title="🔒 چرپەنامە لەگەڵ + یوزەر",
+                photo_url='https://graph.org/file/7a3defa398f4ce6a0a055.jpg',
+                description='@IQMCBOT سەرۆکی بۆت @IQ7amo',
+                reply_markup=InlineKeyboardMarkup ([[InlineKeyboardButton ("🔗", url='t.me/MGIMT')]]),
+                input_message_content=InputTextMessageContent(text)
+            ),
+        ],
+        cache_time=1
+    )
     
-    if string.strip() == "":
-        answers = await in_help()
-        await inline_query.answer(answers)
+@app.on_callback_query(filters.regex("هێنان"))
+async def get_whisper(app,query):
+    sp = query.data.split("هێنان")[1]
+    user = sp.split("from")[0]
+    from_user = int(sp.split("from")[1])
+    reply_markup = InlineKeyboardMarkup(
+      [
+      [
+        InlineKeyboardButton("📪 پیشاندانی نامە", callback_data=query.data)
+      ],
+      [
+        InlineKeyboardButton("🗑️", callback_data=f"DELETE{from_user}")
+      ],
+      ]
+    )
+    if user == "all":
+       msg = await app.get_messages(LOG, int(query.data.split("هێنان")[0]))
+       await query.answer(msg.text, show_alert=True)
+       try:
+         await query.edit_message_reply_markup(
+           reply_markup
+         )
+       except:
+         pass
+       try:
+         alert0 = f"📭 {query.from_user.mention} opened the @all whisper ."
+         await app.send_message(from_user, alert0)
+       except:
+         pass
+       return 
+    
     else:
-        answers = await _whisper(_, inline_query)
-        await inline_query.answer(answers[-1], cache_time=0)
-                                               
+      if str(query.from_user.id) == user:
+        msg = await app.get_messages(LOG, int(query.data.split("هێنان")[0]))
+        await query.answer(msg.text, show_alert=True)
+        try:
+         await query.edit_message_reply_markup(
+           reply_markup
+         )
+        except:
+         pass
+        return 
+
+      if query.from_user.id == from_user:
+        msg = await app.get_messages(LOG, int(query.data.split("هێنان")[0]))
+        await query.answer(msg.text, show_alert=True)
+        return
+      
+      else:
+        get = await app.get_chat(int(user))
+        touser = get.first_name
+        alert = f"ℹ️ Someone trying to open your whisper with {touser}:\n\n"
+        alert += f"👤 Firstname : {query.from_user.mention}\n"
+        alert += f"🆔 ID : {query.from_user.id}\n"
+        if query.from_user.username:
+          alert += f"🔍 Username : @{query.from_user.username}\n"
+        alert += "\n\n📭"
+        await query.answer("🔒 This whisper it's not for you .", show_alert=True)
+        try:
+          await app.send_message(
+            from_user,
+            alert
+          )
+        except:
+          pass
+        return 
+
+@app.on_callback_query(filters.regex("DELETE"))
+async def del_whisper(app,query):
+   user = int(query.data.split("DELETE")[1])
+   if not query.from_user.id == user:
+     return await query.answer("❓ Only the sender can use this button .")
+   
+   else:
+     reply_markup = InlineKeyboardMarkup(
+      [[
+        InlineKeyboardButton("Dev. 🔗", url="https://t.me/DevZaid")
+      ]]
+    )
+     await query.edit_message_text(f"**🗑️ This whisper was deleted by ( {query.from_user.mention} ) .**",
+       reply_markup=reply_markup
+     )
+     
+idle()
