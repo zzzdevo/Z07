@@ -1,5 +1,5 @@
 from pyrogram import Client, filters
-from pyrogram.types import Message
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardMarkup
 from DAXXMUSIC import app
 from pyrogram.types import InlineKeyboardMarkup as Keyboard, InlineKeyboardButton as Button
 import pyrogram.errors, requests, re
@@ -18,18 +18,25 @@ async def start(_, message: Message):
         f"**🧑🏻‍💻︙ببوورە ئەزیزم تۆ جۆین نیت؛\n🔰︙سەرەتا پێویستە جۆینی کەناڵی بۆت ♥️؛\n👾︙بکەیت بۆ بەکارهێنانم جۆین بە ⚜️؛\n💎︙کەناڵی بۆت: {subscribe['channel']}\n\n👾︙کاتێ جۆینت کرد پشکنین بکە:\n`/chk` , `پشکنین `**",
         reply_markup=markup2,
         reply_to_message_id = message.id)
-    name = (await app.get_chat(6357186923)).first_name
-    photo=f"https://telegra.ph/file/024f02f6681c3785ec085.jpg",
-    caption =f"""**[⧉• 𝙎𝙊𝙐𝙍𝘾𝞝 𝙄𝙌 - فەرمانی پشکنین🧑🏻‍💻🖤](t.me/MGIMT)**\n\n**بەخێربێی ئەزیزم {message.from_user.mention} بۆ بەشی پشکنینی لینك تایبەت بە سەرچاوەی زیرەك**\n** بۆ بەکارهێنانی: بڕۆ چاتی بۆت @IQMCBOT و لینك دابنێ بۆتی دەپشکنێ پێت دەڵێت پارێزراوە یان نا♥⚡**"""
-    markup = Keyboard([
-        [Button(name, url="https://t.me/IQMCBOT")]
-    ])
-    await message.reply_photo(
-        caption,
-        reply_markup=markup,
-        reply_to_message_id=message.id
-    )
+        await message.reply_photo(
+        photo=f"https://telegra.ph/file/024f02f6681c3785ec085.jpg",
+        caption=f"""**[⧉• 𝙎𝙊𝙐𝙍𝘾𝞝 𝙄𝙌 - فەرمانی پشکنین🧑🏻‍💻🖤](t.me/MGIMT)**\n\n**بەخێربێی ئەزیزم {message.from_user.mention} بۆ بەشی پشکنینی لینك تایبەت بە سەرچاوەی زیرەك**\n** بۆ بەکارهێنانی: بڕۆ چاتی بۆت @IQMCBOT و لینك دابنێ بۆتی دەپشکنێ پێت دەڵێت پارێزراوە یان نا♥⚡**""",
+        reply_markup=InlineKeyboardMarkup(
+            [
+                [
+                                        InlineKeyboardButton(
+                        "𝙄𝙌 𝙈𝙐𝙎𝙄𝘾 ♥️•", url=f"https://t.me/IQMCBOT"), 
+                 ],[
+                
+                    InlineKeyboardButton(
+                        "⧉• 𝙎𝙊𝙐𝙍𝘾𝞝 𝙄𝙌", url=f"https://t.me/MGIMT"),
+                ],
 
+            ]
+
+        ),
+
+    )
         
 
 @app.on_message(filters.regex(r"(http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+)") & filters.private)
