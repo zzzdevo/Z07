@@ -18,7 +18,7 @@ USER_OWNER = getenv("USER_OWNER","IQ7amo")
 # Get Your bot username
 BOT_USERNAME = getenv("BOT_USERNAME" , "IQMCBOT")
 # Don't Add style font 
-BOT_NAME = getenv("BOT_NAME" , "𝙄𝙌 𝙈𝙐𝙎𝙄𝘾 ♥️•")
+BOT_NAME = getenv("BOT_NAME" , None)
 #get Your Assistant User name
 ASSUSERNAME = getenv("ASSUSERNAME" , "ᴀssɪsᴛᴀɴᴛ ʙᴏᴛ")
 EVALOP = list(map(int, getenv("EVALOP", "833360381 1818734394 5585879611").split()))
