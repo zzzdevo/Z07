@@ -27,6 +27,16 @@
         "value": "",
         "required": true
       },
+      "BOT_NAME": {
+        "description": "A Bot's name from your bot",
+        "value": "",
+        "required": true
+      },
+      "ASSUSERNAME": {
+        "description": "A Bot's ass from your assistant account",
+        "value": "",
+        "required": true
+      },
       "MONGO_DB_URI": {
         "description": "Get a mongodb url from https://cloud.mongodb.com.",
         "value": "",
