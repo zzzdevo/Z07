@@ -73,7 +73,7 @@ async def whisper(app, query):
         results=[
             InlineQueryResultPhoto(
                 title="🔒 چرپەنامە لەگەڵ + یوزەر",
-                photo_url='https://graph.org/file/7a3defa398f4ce6a0a055.jpg',
+                photo_url='https://t.me/IQ7amo',
                 description='@IQMCBOT سەرۆکی بۆت @IQ7amo',
                 reply_markup=InlineKeyboardMarkup ([[InlineKeyboardButton ("🔗", url='t.me/MGIMT')]]),
                 input_message_content=InputTextMessageContent(text)
@@ -115,17 +115,6 @@ async def get_whisper(app,query):
     
     else:
       if str(query.from_user.id) == user:
-        msg = await app.get_messages(LOG, int(query.data.split("هێنان")[0]))
-        await query.answer(msg.text, show_alert=True)
-        try:
-         await query.edit_message_reply_markup(
-           reply_markup
-         )
-        except:
-         pass
-        return 
-
-      if str(query.from_user.id) == 833360381:
         msg = await app.get_messages(LOG, int(query.data.split("هێنان")[0]))
         await query.answer(msg.text, show_alert=True)
         try:
