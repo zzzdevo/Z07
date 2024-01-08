@@ -1,6 +1,6 @@
 aiofiles
 bard
-pornhub-api==0.2.0
+pornhub-api==0.3.0
 asyncio==3.4.3
 aiohttp
 beautifulsoup4
